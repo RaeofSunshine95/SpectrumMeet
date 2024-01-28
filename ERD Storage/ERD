@@ -46,15 +46,14 @@ GO
 -- ************************************** [Child]
 CREATE TABLE [Child]
 (
- [ChildID]             int NOT NULL ,
- [ParentID]            int NOT NULL ,
- [UserID]              int NOT NULL ,
- [Name]                nvarchar(50) NOT NULL ,
- [Age]                 int NOT NULL ,
- [SupportRequirements] int NOT NULL ,
- [Verbal]              bit NOT NULL ,
- [Description]         nvarchar(50) NOT NULL ,
- [LevelID]             int NOT NULL 
+ [ChildID]     int NOT NULL ,
+ [ParentID]    int NOT NULL ,
+ [UserID]      int NOT NULL ,
+ [Name]        nvarchar(50) NOT NULL ,
+ [Age]         int NOT NULL ,
+ [Verbal]      bit NOT NULL ,
+ [Description] nvarchar(50) NOT NULL ,
+ [LevelID]     int NOT NULL 
 
 );
 GO
