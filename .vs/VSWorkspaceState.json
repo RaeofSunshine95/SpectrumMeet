@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\SpectrumMeetMVC",
+    "\\SpectrumMeetMVC\\Content",
+    "\\SpectrumMeetMVC\\Views",
+    "\\SpectrumMeetMVC\\Views\\Home"
   ],
+  "SelectedNode": "\\SpectrumMeetMVC\\SpectrumMeetMVC.sln",
   "PreviewInSolutionExplorer": false
 }
