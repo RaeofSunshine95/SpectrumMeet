@@ -1,0 +1,2 @@
+C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\obj\Debug\SpectrumMeetMVC.csproj.AssemblyReference.cache
+C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\obj\Debug\SpectrumMeetMVC.csproj.CoreCompileInputs.cache
