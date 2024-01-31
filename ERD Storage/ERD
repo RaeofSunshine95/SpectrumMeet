@@ -18,7 +18,7 @@ CREATE TABLE [SupportLevels]
 (
  [LevelID]     int NOT NULL ,
  [Name]        varchar(50) NOT NULL ,
- [Description] varchar(50) NOT NULL 
+ [Description] varchar(200) NOT NULL 
 
 );
 GO
@@ -52,7 +52,7 @@ CREATE TABLE [Child]
  [Name]        nvarchar(50) NOT NULL ,
  [Age]         int NOT NULL ,
  [Verbal]      bit NOT NULL ,
- [Description] nvarchar(50) NOT NULL ,
+ [Description] nvarchar(200) NOT NULL ,
  [LevelID]     int NOT NULL 
 
 );
