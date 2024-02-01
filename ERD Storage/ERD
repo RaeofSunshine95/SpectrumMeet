@@ -22,22 +22,30 @@ CREATE TABLE [SupportLevels]
 
 );
 GO
--- ************************************** [Parent]
-CREATE TABLE [Parent]
+-- ************************************** [Group]
+CREATE TABLE [Group]
 (
- [ParentID]  int NOT NULL ,
- [UserID]    int NOT NULL ,
- [FirstName] nvarchar(50) NOT NULL ,
- [LastName]  nvarchar(50) NOT NULL ,
- [Email]     varchar(50) NOT NULL ,
- [City]      varchar(50) NOT NULL ,
- [State]     varchar(50) NOT NULL 
+ [GroupID] int NOT NULL ,
+ [Name]    varchar(50) NOT NULL 
+
+);
+GO
+-- ************************************** [Guardian]
+CREATE TABLE [Guardian]
+(
+ [GuardianID] int NOT NULL ,
+ [UserID]     int NOT NULL ,
+ [FirstName]  nvarchar(50) NOT NULL ,
+ [LastName]   nvarchar(50) NOT NULL ,
+ [Email]      varchar(50) NOT NULL ,
+ [City]       varchar(50) NOT NULL ,
+ [State]      varchar(50) NOT NULL 
 
 );
 GO
 
 
-CREATE NONCLUSTERED INDEX [FK_1] ON [Parent] 
+CREATE NONCLUSTERED INDEX [FK_1] ON [Guardian] 
  (
   [UserID] ASC
  )
@@ -47,10 +55,8 @@ GO
 CREATE TABLE [Child]
 (
  [ChildID]     int NOT NULL ,
- [ParentID]    int NOT NULL ,
- [UserID]      int NOT NULL ,
  [Name]        nvarchar(50) NOT NULL ,
- [Age]         int NOT NULL ,
+ [BirthDate]   date NOT NULL ,
  [Verbal]      bit NOT NULL ,
  [Description] nvarchar(200) NOT NULL ,
  [LevelID]     int NOT NULL 
@@ -59,17 +65,110 @@ CREATE TABLE [Child]
 GO
 
 
-CREATE NONCLUSTERED INDEX [FK_1] ON [Child] 
+CREATE NONCLUSTERED INDEX [FK_2] ON [Child] 
  (
-  [ParentID] ASC, 
-  [UserID] ASC
+  [LevelID] ASC
+ )
+
+GO
+-- ************************************** [ParentChild]
+CREATE TABLE [ParentChild]
+(
+ [ChildID]    int NOT NULL ,
+ [GuardianID] int NOT NULL ,
+ [isPrimary]  bit NOT NULL 
+
+);
+GO
+
+
+CREATE NONCLUSTERED INDEX [FK_1] ON [ParentChild] 
+ (
+  [GuardianID] ASC
  )
 
 GO
 
-CREATE NONCLUSTERED INDEX [FK_2] ON [Child] 
+CREATE NONCLUSTERED INDEX [FK_2] ON [ParentChild] 
  (
-  [LevelID] ASC
+  [ChildID] ASC
+ )
+
+GO
+-- ************************************** [Message]
+CREATE TABLE [Message]
+(
+ [MessageID]  int NOT NULL ,
+ [GroupID]    int NOT NULL ,
+ [GuardianID] int NOT NULL ,
+ [Title]      nvarchar(50) NOT NULL ,
+ [Content]    nvarchar(max) NOT NULL ,
+ [PostedDate] date NOT NULL 
+
+);
+GO
+
+
+CREATE NONCLUSTERED INDEX [FK_1] ON [Message] 
+ (
+  [GuardianID] ASC
+ )
+
+GO
+
+CREATE NONCLUSTERED INDEX [FK_2] ON [Message] 
+ (
+  [GroupID] ASC
+ )
+
+GO
+-- ************************************** [FollowedGuardians]
+CREATE TABLE [FollowedGuardians]
+(
+ [FollowedGuardianID] int NOT NULL ,
+ [GuardianID_1]       int NOT NULL ,
+ [GuardianID_2]       int NOT NULL ,
+ [Mutual]             bit NOT NULL 
+
+);
+GO
+
+
+CREATE NONCLUSTERED INDEX [FK_1] ON [FollowedGuardians] 
+ (
+  [GuardianID_2] ASC
+ )
+
+GO
+
+CREATE NONCLUSTERED INDEX [FK_2] ON [FollowedGuardians] 
+ (
+  [GuardianID_1] ASC
+ )
+
+GO
+-- ************************************** [Comment]
+CREATE TABLE [Comment]
+(
+ [CommentID]  int NOT NULL ,
+ [MessageID]  int NOT NULL ,
+ [GuardianID] int NOT NULL ,
+ [Content]    nvarchar(max) NOT NULL 
+
+);
+GO
+
+
+CREATE NONCLUSTERED INDEX [FK_1] ON [Comment] 
+ (
+  [MessageID] ASC
+ )
+
+GO
+
+CREATE NONCLUSTERED INDEX [FK_2] ON [Comment] 
+ (
+  [GuardianID] ASC
  )
 
 GO
