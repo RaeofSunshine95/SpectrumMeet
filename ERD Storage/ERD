@@ -191,12 +191,13 @@ GO
 -- ************************************** [PrivateMessage]
 CREATE TABLE [PrivateMessage]
 (
- [PrivateMessageID] int NOT NULL ,
- [Subject]          nvarchar(50) NOT NULL ,
- [Content]          nvarchar(max) NOT NULL ,
- [PostedDate]       datetime NOT NULL ,
- [SenderID]         int NOT NULL ,
- [ReceiverID]       int NOT NULL 
+ [PrivateMessageID]       int NOT NULL ,
+ [Subject]                nvarchar(50) NOT NULL ,
+ [Content]                nvarchar(max) NOT NULL ,
+ [PostedDate]             datetime NOT NULL ,
+ [SenderID]               int NOT NULL ,
+ [ReceiverID]             int NOT NULL ,
+ [ParentPrivateMessageID] int NULL 
 
 );
 GO
@@ -220,6 +221,13 @@ GO
 CREATE NONCLUSTERED INDEX [FK_2] ON [PrivateMessage] 
  (
   [ReceiverID] ASC
+ )
+
+GO
+
+CREATE NONCLUSTERED INDEX [FK_3] ON [PrivateMessage] 
+ (
+  [ParentPrivateMessageID] ASC
  )
 
 GO
@@ -259,12 +267,13 @@ GO
 -- ************************************** [Message]
 CREATE TABLE [Message]
 (
- [MessageID]  int NOT NULL ,
- [GroupID]    int NOT NULL ,
- [Title]      nvarchar(50) NOT NULL ,
- [Content]    nvarchar(max) NOT NULL ,
- [PostedDate] datetime NOT NULL ,
- [AccountID]  int NOT NULL 
+ [MessageID]       hierarchyid NOT NULL ,
+ [GroupID]         int NOT NULL ,
+ [Title]           nvarchar(50) NOT NULL ,
+ [Content]         nvarchar(max) NOT NULL ,
+ [PostedDate]      datetime NOT NULL ,
+ [AccountID]       int NOT NULL ,
+ [ParentMessageID] hierarchyid NULL 
 
 );
 GO
@@ -273,6 +282,13 @@ GO
 CREATE NONCLUSTERED INDEX [FK_2] ON [Message] 
  (
   [GroupID] ASC
+ )
+
+GO
+
+CREATE NONCLUSTERED INDEX [FK_3] ON [Message] 
+ (
+  [ParentMessageID] ASC
  )
 
 GO
@@ -353,73 +369,6 @@ GO
 CREATE NONCLUSTERED INDEX [FK_2] ON [Following] 
  (
   [FollowingUser] ASC
- )
-
-GO
--- ************************************** [Comment]
-CREATE TABLE [Comment]
-(
- [CommentID] int NOT NULL ,
- [MessageID] int NOT NULL ,
- [Content]   nvarchar(max) NOT NULL ,
- [PostedAt]  datetime NOT NULL ,
- [AccountID] int NOT NULL 
-
-);
-GO
-
-
-CREATE UNIQUE CLUSTERED INDEX [CommentUX] ON [Comment] 
- (
-  [MessageID] ASC
- )
-
-GO
-
-CREATE NONCLUSTERED INDEX [FK_2] ON [Comment] 
- (
-  [AccountID] ASC
- )
-
-GO
-
-CREATE NONCLUSTERED INDEX [FK_2_1] ON [Comment] 
- (
-  [MessageID] ASC
- )
-
-GO
--- ************************************** [CommentReply]
-CREATE TABLE [CommentReply]
-(
- [CommentReplyID] int NOT NULL ,
- [ReplyID]        int NOT NULL ,
- [OriginalID]     int NOT NULL ,
- [Content]        nvarchar(max) NOT NULL ,
- [PostedAt]       datetime NOT NULL 
-
-);
-GO
-
-
-CREATE UNIQUE NONCLUSTERED INDEX [CommentReplyUX] ON [CommentReply] 
- (
-  [ReplyID] ASC, 
-  [OriginalID] ASC
- )
-
-GO
-
-CREATE NONCLUSTERED INDEX [FK_1] ON [CommentReply] 
- (
-  [OriginalID] ASC
- )
-
-GO
-
-CREATE NONCLUSTERED INDEX [FK_2] ON [CommentReply] 
- (
-  [ReplyID] ASC
  )
 
 GO
