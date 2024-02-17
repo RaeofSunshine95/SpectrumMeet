@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="OOPsieModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="OOPsieModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="AccountID" />
@@ -20,7 +20,7 @@
           <Key>
             <PropertyRef Name="ChildID" />
           </Key>
-          <Property Name="ChildID" Type="int" Nullable="false" />
+          <Property Name="ChildID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="BirthDate" Type="date" Nullable="false" />
           <Property Name="Verbal" Type="bit" Nullable="false" />
@@ -31,7 +31,7 @@
           <Key>
             <PropertyRef Name="ChildConditionID" />
           </Key>
-          <Property Name="ChildConditionID" Type="int" Nullable="false" />
+          <Property Name="ChildConditionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ConditionID" Type="int" Nullable="false" />
           <Property Name="ChildID" Type="int" Nullable="false" />
         </EntityType>
@@ -47,7 +47,7 @@
           <Key>
             <PropertyRef Name="LinkID" />
           </Key>
-          <Property Name="LinkID" Type="int" Nullable="false" />
+          <Property Name="LinkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Mutual" Type="bit" Nullable="false" />
           <Property Name="FollowedUser" Type="int" Nullable="false" />
           <Property Name="FollowingUser" Type="int" Nullable="false" />
@@ -56,7 +56,7 @@
           <Key>
             <PropertyRef Name="GroupID" />
           </Key>
-          <Property Name="GroupID" Type="int" Nullable="false" />
+          <Property Name="GroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ConditionID" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -64,7 +64,7 @@
           <Key>
             <PropertyRef Name="GroupMemberID" />
           </Key>
-          <Property Name="GroupMemberID" Type="int" Nullable="false" />
+          <Property Name="GroupMemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GroupID" Type="int" Nullable="false" />
           <Property Name="GroupRoleID" Type="int" Nullable="false" />
           <Property Name="AccountID" Type="int" Nullable="false" />
@@ -73,7 +73,7 @@
           <Key>
             <PropertyRef Name="GroupRoleID" />
           </Key>
-          <Property Name="GroupRoleID" Type="int" Nullable="false" />
+          <Property Name="GroupRoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar(max)" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -81,26 +81,27 @@
           <Key>
             <PropertyRef Name="GroupTagID" />
           </Key>
-          <Property Name="GroupTagID" Type="int" Nullable="false" />
+          <Property Name="GroupTagID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TagID" Type="int" Nullable="false" />
           <Property Name="GroupID" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6005: The data type 'hierarchyid' is currently not supported for the target Entity Framework version; the column 'MessageID' in the table 'OOPsie.dbo.Message' was excluded.
-warning 6005: The data type 'hierarchyid' is currently not supported for the target Entity Framework version; the column 'ParentMessageID' in the table 'OOPsie.dbo.Message' was excluded.
-warning 6031: The column 'MessageID' on the table/view 'OOPsie.dbo.Message' was excluded, and is a key column.  The table/view has been excluded.  Please fix the entity in the schema file, and uncomment.
         <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GroupID" Type="int" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PostedDate" Type="datetime" Nullable="false" />
           <Property Name="AccountID" Type="int" Nullable="false" />
-        </EntityType>-->
+          <Property Name="ParentMessageID" Type="int" />
+        </EntityType>
         <EntityType Name="ParentChild">
           <Key>
             <PropertyRef Name="ParentChildID" />
           </Key>
-          <Property Name="ParentChildID" Type="int" Nullable="false" />
+          <Property Name="ParentChildID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="isPrimary" Type="bit" Nullable="false" />
           <Property Name="ChildID" Type="int" Nullable="false" />
           <Property Name="AccountID" Type="int" Nullable="false" />
@@ -109,7 +110,7 @@ warning 6031: The column 'MessageID' on the table/view 'OOPsie.dbo.Message' was 
           <Key>
             <PropertyRef Name="PrivateMessageID" />
           </Key>
-          <Property Name="PrivateMessageID" Type="int" Nullable="false" />
+          <Property Name="PrivateMessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PostedDate" Type="datetime" Nullable="false" />
@@ -129,7 +130,7 @@ warning 6031: The column 'MessageID' on the table/view 'OOPsie.dbo.Message' was 
           <Key>
             <PropertyRef Name="LevelID" />
           </Key>
-          <Property Name="LevelID" Type="int" Nullable="false" />
+          <Property Name="LevelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="varchar(max)" Nullable="false" />
         </EntityType>
@@ -147,14 +148,14 @@ warning 6031: The column 'MessageID' on the table/view 'OOPsie.dbo.Message' was 
           <Key>
             <PropertyRef Name="TagID" />
           </Key>
-          <Property Name="TagID" Type="int" Nullable="false" />
+          <Property Name="TagID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="AccountID" />
           </Key>
-          <Property Name="AccountID" Type="int" Nullable="false" />
+          <Property Name="AccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
@@ -318,13 +319,30 @@ warning 6031: The column 'MessageID' on the table/view 'OOPsie.dbo.Message' was 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-error 6004: The table 'OOPsie.dbo.Message' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_Message_Group" />-->
-        <!--Errors Found During Generation:
-error 6004: The table 'OOPsie.dbo.Message' is referenced by a relationship, but cannot be found.
-error 6004: The table 'OOPsie.dbo.Message' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_Message_Message" />-->
+        <Association Name="FK_Message_Group">
+          <End Role="Group" Type="Self.Group" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_Message">
+          <End Role="Message" Type="Self.Message" Multiplicity="0..1" />
+          <End Role="Message1" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Message">
+              <PropertyRef Name="MessageID" />
+            </Principal>
+            <Dependent Role="Message1">
+              <PropertyRef Name="ParentMessageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ParentChild_Account">
           <End Role="Account" Type="Self.Account" Multiplicity="1" />
           <End Role="ParentChild" Type="Self.ParentChild" Multiplicity="*" />
@@ -426,6 +444,7 @@ error 6004: The table 'OOPsie.dbo.Message' is referenced by a relationship, but 
           <EntitySet Name="GroupMember" EntityType="Self.GroupMember" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupRole" EntityType="Self.GroupRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupTag" EntityType="Self.GroupTag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParentChild" EntityType="Self.ParentChild" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrivateMessage" EntityType="Self.PrivateMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
@@ -485,6 +504,14 @@ error 6004: The table 'OOPsie.dbo.Message' is referenced by a relationship, but 
             <End Role="Tag" EntitySet="Tag" />
             <End Role="GroupTag" EntitySet="GroupTag" />
           </AssociationSet>
+          <AssociationSet Name="FK_Message_Group" Association="Self.FK_Message_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_Message" Association="Self.FK_Message_Message">
+            <End Role="Message" EntitySet="Message" />
+            <End Role="Message1" EntitySet="Message" />
+          </AssociationSet>
           <AssociationSet Name="FK_ParentChild_Account" Association="Self.FK_ParentChild_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="ParentChild" EntitySet="ParentChild" />
@@ -506,8 +533,7 @@ error 6004: The table 'OOPsie.dbo.Message' is referenced by a relationship, but 
             <End Role="PrivateMessage1" EntitySet="PrivateMessage" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OOPsieModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -585,6 +611,7 @@ error 6004: The table 'OOPsie.dbo.Message' is referenced by a relationship, but 
           <NavigationProperty Name="Condition" Relationship="Self.FK_Group_Condition" FromRole="Group" ToRole="Condition" />
           <NavigationProperty Name="GroupMembers" Relationship="Self.FK_GroupMember_Group" FromRole="Group" ToRole="GroupMember" />
           <NavigationProperty Name="GroupTags" Relationship="Self.FK_GroupTag_Group" FromRole="Group" ToRole="GroupTag" />
+          <NavigationProperty Name="Messages" Relationship="OOPsieModel.FK_Message_Group" FromRole="Group" ToRole="Message" />
         </EntityType>
         <EntityType Name="GroupMember">
           <Key>
@@ -1028,6 +1055,15 @@ error 6004: The table 'OOPsie.dbo.Message' is referenced by a relationship, but 
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Messages" EntityType="OOPsieModel.Message" />
+          <AssociationSet Name="FK_Message_Group" Association="OOPsieModel.FK_Message_Group">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_Message" Association="OOPsieModel.FK_Message_Message">
+            <End Role="Message" EntitySet="Messages" />
+            <End Role="Message1" EntitySet="Messages" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1040,6 +1076,45 @@ error 6004: The table 'OOPsie.dbo.Message' is referenced by a relationship, but 
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PostedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <Property Name="ParentMessageID" Type="Int32" />
+          <NavigationProperty Name="Group" Relationship="OOPsieModel.FK_Message_Group" FromRole="Message" ToRole="Group" />
+          <NavigationProperty Name="Message1" Relationship="OOPsieModel.FK_Message_Message" FromRole="Message" ToRole="Message1" />
+          <NavigationProperty Name="Message2" Relationship="OOPsieModel.FK_Message_Message" FromRole="Message1" ToRole="Message" />
+        </EntityType>
+        <Association Name="FK_Message_Group">
+          <End Type="OOPsieModel.Group" Role="Group" Multiplicity="1" />
+          <End Type="OOPsieModel.Message" Role="Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_Message">
+          <End Type="OOPsieModel.Message" Role="Message" Multiplicity="0..1" />
+          <End Type="OOPsieModel.Message" Role="Message1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Message">
+              <PropertyRef Name="MessageID" />
+            </Principal>
+            <Dependent Role="Message1">
+              <PropertyRef Name="ParentMessageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1232,6 +1307,19 @@ error 6004: The table 'OOPsie.dbo.Message' is referenced by a relationship, but 
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="OOPsieModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="OOPsieModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="OOPsieModel.Message">
+              <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="ParentMessageID" ColumnName="ParentMessageID" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

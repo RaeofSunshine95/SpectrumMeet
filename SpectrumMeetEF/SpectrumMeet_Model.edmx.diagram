@@ -39,6 +39,9 @@
         <AssociationConnector Association="OOPsieModel.FK_GroupMember_GroupRole" ManuallyRouted="false" />
         <AssociationConnector Association="OOPsieModel.FK_GroupTag_Tag" ManuallyRouted="false" />
         <AssociationConnector Association="OOPsieModel.FK_PrivateMessage_PrivateMessage" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OOPsieModel.Message" Width="1.5" PointX="5.25" PointY="20.5" />
+        <AssociationConnector Association="OOPsieModel.FK_Message_Group" />
+        <AssociationConnector Association="OOPsieModel.FK_Message_Message" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

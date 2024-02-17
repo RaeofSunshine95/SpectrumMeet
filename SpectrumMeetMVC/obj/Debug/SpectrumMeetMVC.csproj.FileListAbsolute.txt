@@ -54,3 +54,6 @@ C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\bin\EntityFramework.dll
 C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\bin\EntityFramework.SqlServer.dll
 C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\bin\EntityFramework.xml
 C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\bin\EntityFramework.SqlServer.xml
+C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\bin\SpectrumMeetEF.dll
+C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\bin\SpectrumMeetEF.pdb
+C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\bin\SpectrumMeetEF.dll.config

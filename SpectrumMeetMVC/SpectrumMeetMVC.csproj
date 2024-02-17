@@ -155,6 +155,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\AccountsController.cs" />
+    <Compile Include="Areas\ChildProfile\ChildProfileAreaRegistration.cs" />
+    <Compile Include="Areas\ChildProfile\Controllers\ChildrenController.cs" />
+    <Compile Include="Areas\GroupPage\Controllers\GroupsController.cs" />
+    <Compile Include="Areas\GroupPage\GroupPageAreaRegistration.cs" />
+    <Compile Include="Areas\MessageBoard\Controllers\MessagesController.cs" />
+    <Compile Include="Areas\MessageBoard\MessageBoardAreaRegistration.cs" />
+    <Compile Include="Areas\PrivateMessage\Controllers\PrivateMessagesController.cs" />
+    <Compile Include="Areas\PrivateMessage\PrivateMessageAreaRegistration.cs" />
+    <Compile Include="Areas\UserProfile\Controllers\UsersController.cs" />
+    <Compile Include="Areas\UserProfile\UserProfileAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -182,14 +194,74 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administration\Data\" />
+    <Folder Include="Areas\ChildProfile\Data\" />
+    <Folder Include="Areas\GroupPage\Data\" />
+    <Folder Include="Areas\MessageBoard\Data\" />
+    <Folder Include="Areas\PrivateMessage\Data\" />
+    <Folder Include="Areas\UserProfile\Data\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\UserProfile\Views\web.config" />
+    <Content Include="Areas\MessageBoard\Views\web.config" />
+    <Content Include="Areas\GroupPage\Views\web.config" />
+    <Content Include="Areas\PrivateMessage\Views\web.config" />
+    <Content Include="Areas\Administration\Views\web.config" />
+    <Content Include="Areas\ChildProfile\Views\web.config" />
+    <Content Include="Areas\ChildProfile\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\ChildProfile\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\ChildProfile\Views\Children\Create.cshtml" />
+    <Content Include="Areas\ChildProfile\Views\Children\Delete.cshtml" />
+    <Content Include="Areas\ChildProfile\Views\Children\Details.cshtml" />
+    <Content Include="Areas\ChildProfile\Views\Children\Edit.cshtml" />
+    <Content Include="Areas\ChildProfile\Views\Children\Index.cshtml" />
+    <Content Include="Areas\GroupPage\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\GroupPage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\GroupPage\Views\Groups\Create.cshtml" />
+    <Content Include="Areas\GroupPage\Views\Groups\Delete.cshtml" />
+    <Content Include="Areas\GroupPage\Views\Groups\Details.cshtml" />
+    <Content Include="Areas\GroupPage\Views\Groups\Edit.cshtml" />
+    <Content Include="Areas\GroupPage\Views\Groups\Index.cshtml" />
+    <Content Include="Areas\PrivateMessage\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\PrivateMessage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\PrivateMessage\Views\PrivateMessages\Create.cshtml" />
+    <Content Include="Areas\PrivateMessage\Views\PrivateMessages\Delete.cshtml" />
+    <Content Include="Areas\PrivateMessage\Views\PrivateMessages\Details.cshtml" />
+    <Content Include="Areas\PrivateMessage\Views\PrivateMessages\Edit.cshtml" />
+    <Content Include="Areas\PrivateMessage\Views\PrivateMessages\Index.cshtml" />
+    <Content Include="Areas\MessageBoard\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MessageBoard\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\MessageBoard\Views\Messages\Create.cshtml" />
+    <Content Include="Areas\MessageBoard\Views\Messages\Delete.cshtml" />
+    <Content Include="Areas\MessageBoard\Views\Messages\Details.cshtml" />
+    <Content Include="Areas\MessageBoard\Views\Messages\Edit.cshtml" />
+    <Content Include="Areas\MessageBoard\Views\Messages\Index.cshtml" />
+    <Content Include="Areas\UserProfile\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\UserProfile\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\UserProfile\Views\Users\Create.cshtml" />
+    <Content Include="Areas\UserProfile\Views\Users\Delete.cshtml" />
+    <Content Include="Areas\UserProfile\Views\Users\Details.cshtml" />
+    <Content Include="Areas\UserProfile\Views\Users\Edit.cshtml" />
+    <Content Include="Areas\UserProfile\Views\Users\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Administration\Views\Accounts\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\Accounts\Delete.cshtml" />
+    <Content Include="Areas\Administration\Views\Accounts\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\Accounts\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\Accounts\Index.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpectrumMeetEF\SpectrumMeetEF.csproj">
+      <Project>{c6423ca8-0512-4826-b65a-221ee8db5486}</Project>
+      <Name>SpectrumMeetEF</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
