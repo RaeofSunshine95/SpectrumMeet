@@ -19,6 +19,7 @@ namespace SpectrumMeetEF
         {
             this.GroupMembers = new HashSet<GroupMember>();
             this.GroupTags = new HashSet<GroupTag>();
+            this.Messages = new HashSet<Message>();
         }
     
         public int GroupID { get; set; }
@@ -30,5 +31,7 @@ namespace SpectrumMeetEF
         public virtual ICollection<GroupMember> GroupMembers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GroupTag> GroupTags { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Message> Messages { get; set; }
     }
 }

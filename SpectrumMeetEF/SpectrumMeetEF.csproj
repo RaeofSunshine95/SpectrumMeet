@@ -80,6 +80,9 @@
     <Compile Include="GroupTag.cs">
       <DependentUpon>SpectrumMeet_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Message.cs">
+      <DependentUpon>SpectrumMeet_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="ParentChild.cs">
       <DependentUpon>SpectrumMeet_Model.tt</DependentUpon>
     </Compile>
