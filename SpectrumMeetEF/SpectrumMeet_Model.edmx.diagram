@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5597762c85114229aae7396fc876040c" Name="Diagram1">
+        <EntityTypeShape EntityType="OOPsieModel.Account" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OOPsieModel.Child" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OOPsieModel.ChildCondition" Width="1.5" PointX="8.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OOPsieModel.Condition" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OOPsieModel.Following" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OOPsieModel.Group" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OOPsieModel.GroupMember" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="OOPsieModel.GroupRole" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OOPsieModel.GroupTag" Width="1.5" PointX="8.25" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OOPsieModel.ParentChild" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="OOPsieModel.PrivateMessage" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="OOPsieModel.Role" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OOPsieModel.SupportLevel" Width="1.5" PointX="3.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OOPsieModel.sysdiagram" Width="1.5" PointX="10.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OOPsieModel.Tag" Width="1.5" PointX="6" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="OOPsieModel.User" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <AssociationConnector Association="OOPsieModel.FK_Account_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_Account_User" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_Following_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_Following_Account1" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_GroupMember_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_ParentChild_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_PrivateMessage_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_PrivateMessage_Account1" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_Child_SupportLevels" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_ChildCondition_Child" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_ParentChild_Child" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_ChildCondition_Condition" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_Group_Condition" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_GroupMember_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_GroupTag_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_GroupMember_GroupRole" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_GroupTag_Tag" ManuallyRouted="false" />
+        <AssociationConnector Association="OOPsieModel.FK_PrivateMessage_PrivateMessage" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

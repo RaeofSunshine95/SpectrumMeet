@@ -50,3 +50,7 @@ C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\bin\WebMatrix.Data.dll
 C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\bin\WebMatrix.WebData.dll
 C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\bin\WebMatrix.Data.xml
 C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\bin\WebMatrix.WebData.xml
+C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\bin\EntityFramework.dll
+C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\bin\EntityFramework.SqlServer.dll
+C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\bin\EntityFramework.xml
+C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\bin\EntityFramework.SqlServer.xml
