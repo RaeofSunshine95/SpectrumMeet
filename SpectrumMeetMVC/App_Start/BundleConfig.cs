@@ -23,7 +23,7 @@ namespace SpectrumMeetMVC
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/Lumen.css",
+                      "~/Content/Nova.css",
                       "~/Content/site.css"));
         }
     }
