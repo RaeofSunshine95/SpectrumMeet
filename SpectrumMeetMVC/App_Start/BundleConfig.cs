@@ -23,11 +23,8 @@ namespace SpectrumMeetMVC
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-<<<<<<< HEAD
                       "~/Content/Nova.css",
-=======
                       "~/Content/bootstrap.css",
->>>>>>> parent of d4b1932 (lumen theme might change just practicing)
                       "~/Content/site.css"));
         }
     }
