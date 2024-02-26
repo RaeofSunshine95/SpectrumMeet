@@ -162,6 +162,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\SpectrumMeetMVC\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\SpectrumMeetMVC\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
     <Error Condition="!Exists('..\SpectrumMeetMVC\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\SpectrumMeetMVC\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\SpectrumMeetMVC\packages\BuildWebCompiler.1.12.405\build\BuildWebCompiler.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\SpectrumMeetMVC\packages\BuildWebCompiler.1.12.405\build\BuildWebCompiler.targets'))" />
   </Target>
   <Import Project="..\SpectrumMeetMVC\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\SpectrumMeetMVC\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\SpectrumMeetMVC\packages\BuildWebCompiler.1.12.405\build\BuildWebCompiler.targets" Condition="Exists('..\SpectrumMeetMVC\packages\BuildWebCompiler.1.12.405\build\BuildWebCompiler.targets')" />
 </Project>
