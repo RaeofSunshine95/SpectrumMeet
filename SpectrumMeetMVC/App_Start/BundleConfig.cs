@@ -24,6 +24,7 @@ namespace SpectrumMeetMVC
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/Nova.css",
+                      "~/Content/bootstrap.css",
                       "~/Content/site.css"));
         }
     }
