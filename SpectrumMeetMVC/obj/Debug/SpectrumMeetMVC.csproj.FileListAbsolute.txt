@@ -57,3 +57,4 @@ C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\obj\Debug\SpectrumMeetM
 C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\obj\Debug\SpectrumMeetMVC.csproj.CopyComplete
 C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\obj\Debug\SpectrumMeetMVC.dll
 C:\Users\RaeSu\source\repos\SpectrumMeet\SpectrumMeetMVC\obj\Debug\SpectrumMeetMVC.pdb
+C:\Users\dalia\source\repos\NewSpectrumMeet\SpectrumMeetMVC\obj\Debug\SpectrumMeetMVC.csproj.AssemblyReference.cache
