@@ -124,6 +124,10 @@ namespace SpectrumMeetMVC.Areas.Administration.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Login(string username, string password)
+        {
+            return View("Login");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
