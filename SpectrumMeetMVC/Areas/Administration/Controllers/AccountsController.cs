@@ -134,18 +134,18 @@ namespace SpectrumMeetMVC.Areas.Administration.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LoginSubmit(string username, string password)
         {
-            var useraccount = db.Accounts.Find(username);
+            var useraccount = db.Accounts.Where(u=> u.Username == username);
             if (useraccount == null)
             {
                 return View("Login");
             }
-            else if (password != useraccount.Password)
+            else if (!password.Equals(useraccount.Select(p=>p.Password)))
             {
                 return View("Login");
             }
-            var userProfile = db.Users.Find(useraccount.AccountID);
+            var userProfile = db.Users.Find(useraccount.Select(a=>a.AccountID));
             Session["ActiveUser"] = userProfile;
-            return View(userProfile);
+            return View("Index");
         }
         protected override void Dispose(bool disposing)
         {
