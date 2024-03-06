@@ -16,6 +16,6 @@
         <td>@Html.DisplayNameFor(model=> model.Password)</td>
         <td>@Html.EditorFor(model=> model.Password)</td>
     </tr>
-     <tr><td><input type="submit" value="Login"/></td></tr>
+     <tr><td><input type="submit" value="Login" onclick="window.location.href = '@Url.Action("LoginSubmit",null, new {area="Administration", controller="Accounts"})';"/></td></tr>
  </table>
  }

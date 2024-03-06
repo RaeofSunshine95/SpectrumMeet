@@ -6,12 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using SpectrumMeetEF;
 
 namespace SpectrumMeetMVC.Areas.Administration.Controllers
 {
     public class AccountsController : Controller
     {
+        
         private SpectrumMeetEntities db = new SpectrumMeetEntities();
 
         // GET: Administration/Accounts
@@ -124,9 +126,26 @@ namespace SpectrumMeetMVC.Areas.Administration.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Login(string username, string password)
+        public ActionResult Login()
         {
             return View("Login");
+        }
+        [HttpPost, ActionName("LoginSubmit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult LoginSubmit(string username, string password)
+        {
+            var useraccount = db.Accounts.Find(username);
+            if (useraccount == null)
+            {
+                return View("Login");
+            }
+            else if (password != useraccount.Password)
+            {
+                return View("Login");
+            }
+            var userProfile = db.Users.Find(useraccount.AccountID);
+            Session["ActiveUser"] = userProfile;
+            return View(userProfile);
         }
         protected override void Dispose(bool disposing)
         {
