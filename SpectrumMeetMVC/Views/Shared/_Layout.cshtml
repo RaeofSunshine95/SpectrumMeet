@@ -32,7 +32,7 @@
                         <a class="nav-link" href="@Url.Action("Index", null, new {area="GroupPage", controller="Groups"})">Groups</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index",null, new {area="UserProfile", controller="Users"})">Profile</a>
+                        <a class="nav-link" href="@Url.Action("Details",null, new {area="UserProfile", controller="Users", id = Session["ActiveUser"] })">Profile</a>
                     </li>
                 </ul>
                 <form class="d-flex">
