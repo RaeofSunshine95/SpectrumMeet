@@ -125,11 +125,13 @@ namespace SpectrumMeetMVC.Areas.Administration.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+//LOGIN ACTIONS BELOW
         public ActionResult Login()
         {
             return View("Login");
         }
+//Only triggers on HTTPPost, takes the model data from the Login Submission form and uses it as an account object, if the object's username
+//and password match up, it stores the account ID and Username as two session-state variables for later use (profile link in layout redirects here)
         [HttpPost, ActionName("Login")]
         [ValidateAntiForgeryToken]
         public ActionResult Login(Account objAccount)
