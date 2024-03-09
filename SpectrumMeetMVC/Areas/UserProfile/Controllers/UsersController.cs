@@ -22,19 +22,6 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
         }
 
         // GET: UserProfile/Users/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
 
         // GET: UserProfile/Users/Create
         public ActionResult Create()
@@ -119,7 +106,18 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        public ActionResult Details()
+        {
+            if (Session["AccountID"] != null)
+            {
+                var userProfile = db.Users.Find(Convert.ToInt32(Session["AccountID"]));
+                return View(userProfile);
+            }
+            else
+            {
+                return RedirectToAction("Login", null, new {area="Administration", controller="Accounts"});
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
