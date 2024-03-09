@@ -20,7 +20,7 @@ namespace SpectrumMeetEF
         public string Email { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public System.DateTime Birthday { get; set; }
+        public Nullable<System.DateTime> Birthday { get; set; }
     
         public virtual Account Account { get; set; }
     }

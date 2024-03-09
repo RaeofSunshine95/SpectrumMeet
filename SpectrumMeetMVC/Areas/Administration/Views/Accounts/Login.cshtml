@@ -1,0 +1,21 @@
+﻿@model SpectrumMeetEF.Account
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Login</h2>
+@using (Html.BeginForm())
+{
+ <table border="0">
+    <tr>
+        <td>@Html.DisplayNameFor(model=> model.Username)</td>
+        <td>@Html.EditorFor(model=> model.Username)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model=> model.Password)</td>
+        <td>@Html.EditorFor(model=> model.Password)</td>
+    </tr>
+     <tr><td><input type="submit" value="Login" onclick="window.location.href = '@Url.Action("LoginSubmit",null, new {area="Administration", controller="Accounts"})';"/></td></tr>
+ </table>
+ }
