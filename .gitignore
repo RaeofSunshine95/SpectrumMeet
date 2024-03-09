@@ -398,3 +398,5 @@ FodyWeavers.xsd
 *.sln.iml
 /SpectrumMeetMVC/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 /SpectrumMeetMVC/obj/Debug/SpectrumMeetMVC.csproj.AssemblyReference.cache
+/SpectrumMeetMVC/obj/Release/SpectrumMeetMVC.csproj.AssemblyReference.cache
+/SpectrumMeetMVC/SpectrumMeetMVC.csproj.user
