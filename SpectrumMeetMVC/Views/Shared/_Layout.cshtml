@@ -32,6 +32,8 @@
                         <a class="nav-link" href="@Url.Action("Index", null, new {area="GroupPage", controller="Groups"})">Groups</a>
                     </li>
                     <li class="nav-item">
+                        <!--I'm so glad that this nav-link is so much simpler now and just works properly! 
+                            The user controller handles all the session variable work so I don't need to put it here.'-->
                         <a class="nav-link" href="@Url.Action("Details",null, new {area="UserProfile", controller="Users"})">Profile</a>
                     </li>
                 </ul>
@@ -47,6 +49,7 @@
         @RenderBody()
         <hr />
         <footer>
+            <!--Footer with a big ol versioning string. Had to directly reference the package instead of indirect reference like bob showed us, but it works so who cares.-->
             <p>&copy; @DateTime.Now.Year by The Spectrum Meet Team | ver. @System.Reflection.Assembly.GetAssembly(typeof(SpectrumMeetMVC.Controllers.HomeController)).GetName().Version.ToString()</p>
         </footer>
     </div>
