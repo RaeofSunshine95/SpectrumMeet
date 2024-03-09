@@ -106,6 +106,10 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        //Bespoke details action that uses the session variable to determine the correct
+        //Account to go to instead of the usual integer id parameter
+        //Kinda messy but it means a null session doesn't throw a bad request error and redirects
+        //to login which makes more sense
         public ActionResult Details()
         {
             if (Session["AccountID"] != null)

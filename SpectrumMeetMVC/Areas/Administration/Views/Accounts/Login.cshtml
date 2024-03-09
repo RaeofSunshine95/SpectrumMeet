@@ -7,6 +7,11 @@
 <h2>Login</h2>
 @using (Html.BeginForm("Login","Accounts", FormMethod.Post))
 {
+    //Got most of this code from a tutorial on csharp corner
+    //It's a simple form validation summary that submits the entered values as an HTTPpost
+    //That way it triggers the login action under [HTTPpost] in the accounts controller
+    //Not much else to say here except it could be prettied up with some buttons instead
+    //of the table blocks, but that's a secondary concern to functionality.
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     if (ViewBag.Message != null)
