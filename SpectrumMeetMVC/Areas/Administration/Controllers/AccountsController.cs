@@ -130,22 +130,21 @@ namespace SpectrumMeetMVC.Areas.Administration.Controllers
         {
             return View("Login");
         }
-        [HttpPost, ActionName("LoginSubmit")]
+        [HttpPost, ActionName("Login")]
         [ValidateAntiForgeryToken]
-        public ActionResult LoginSubmit(string username, string password)
+        public ActionResult Login(Account objAccount)
         {
-            var useraccount = db.Accounts.Where(u=> u.Username == username);
-            if (useraccount == null)
+            if (ModelState.IsValid)
             {
-                return View("Login");
+                var obj = db.Accounts.Where(a => a.Username.Equals(objAccount.Username) && a.Password.Equals(objAccount.Password)).FirstOrDefault();
+                if (obj != null)
+                {
+                    Session["AccountID"] = obj.AccountID.ToString();
+                    Session["Username"] = obj.Username.ToString();
+                    return RedirectToAction("Details",null, new {area="UserProfile", controller="Users", id = obj.AccountID});
+                }
             }
-            else if (!password.Equals(useraccount.Select(p=>p.Password)))
-            {
-                return View("Login");
-            }
-            var userProfile = db.Users.Find(useraccount.Select(a=>a.AccountID));
-            Session["ActiveUser"] = userProfile;
-            return View("Index");
+            return View(objAccount);
         }
         protected override void Dispose(bool disposing)
         {
