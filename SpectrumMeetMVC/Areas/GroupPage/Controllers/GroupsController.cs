@@ -106,7 +106,7 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
         }
 
         // GET: GroupPage/Groups/Delete/5
-        public ActionResult Delete(int? id) //how to make only creator to be able to delete
+        public ActionResult Delete(int? id) // TODO: how to make only creator to be able to delete reference user class 
         {
             if (id == null)
             {
