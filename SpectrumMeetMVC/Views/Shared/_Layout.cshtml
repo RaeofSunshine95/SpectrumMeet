@@ -37,10 +37,7 @@
                         <a class="nav-link" href="@Url.Action("Details",null, new {area="UserProfile", controller="Users"})">Profile</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-sm-2" type="search" placeholder="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                
                 <button class="btn btn-dark" type="button" onclick="window.location.href = '@Url.Action("Login",null, new {area="Administration", controller="Accounts"})';">Log In</button>
             </div>
         </div>

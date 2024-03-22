@@ -20,20 +20,26 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <a href="@Url.Action("Details", "Groups", new { id = item.GroupID })">@Html.DisplayFor(modelItem => item.Name)</a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Condition.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.GroupID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.GroupID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.GroupID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Details", "Groups", new { id = item.GroupID })">@Html.DisplayFor(modelItem => item.Name)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Condition.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.GroupID }) |
+
+                @Html.ActionLink("Delete", "Delete", new { id = item.GroupID })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<!--<form class="d-flex"> add search bar into group index to search for groups instead of tagging TODO FIXME
+    <input class="form-control me-sm-2" type="search" placeholder="Search">
+    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+</form>-->
