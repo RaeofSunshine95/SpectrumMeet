@@ -23,7 +23,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            <a href="@Url.Action("Details", "Groups", new { id = item.GroupID })">@Html.DisplayFor(modelItem => item.Name)</a>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Condition.Name)

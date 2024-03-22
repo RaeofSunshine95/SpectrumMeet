@@ -28,7 +28,18 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = db.Groups.Find(id);
+            Group group = db.Groups
+                
+                 .Include(x => x.Condition)
+                .Include(x => x.GroupMembers)
+                .Include(x => x.GroupTags)
+                .Include(x => x.Messages)
+                .FirstOrDefault(g => g.GroupID == (int)id);
+
+            string detailsUrl = Url.Action("Details", "Groups", new { id = group.GroupID });
+            ViewBag.DetailsUrl = detailsUrl;
+            ViewBag.GroupName = group.Name;
+
             if (group == null)
             {
                 return HttpNotFound();
@@ -95,7 +106,7 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
         }
 
         // GET: GroupPage/Groups/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id) // TODO: how to make only creator to be able to delete reference user class 
         {
             if (id == null)
             {
