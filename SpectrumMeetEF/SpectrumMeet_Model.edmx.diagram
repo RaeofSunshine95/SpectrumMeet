@@ -42,6 +42,7 @@
         <AssociationConnector Association="OOPsieModel.FK_Message_Message" />
         <EntityTypeShape EntityType="OOPsieModel.Tag" Width="1.5" PointX="0.75" PointY="0.875" />
         <AssociationConnector Association="OOPsieModel.FK_GroupTag_Tag" />
+        <AssociationConnector Association="OOPsieModel.FK_Message_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
