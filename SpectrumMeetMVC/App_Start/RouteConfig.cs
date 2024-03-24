@@ -13,6 +13,12 @@ namespace SpectrumMeetMVC
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //routes.MapRoute(
+              //  name: "GroupDetails",
+             //   url: "Groups/Details/{id}",
+            //    defaults: new { controller = "Groups", action = "Details", id = UrlParameter.Optional }
+           //  );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

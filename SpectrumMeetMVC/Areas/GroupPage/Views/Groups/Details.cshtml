@@ -4,31 +4,41 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Group: @Html.DisplayFor(model => model.Name)</h2>
 
-<div>
-    <h4>Group</h4>
+<h3>
+    For @Html.DisplayFor(model => model.Condition.Name)</h3>
+
+ 
+
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+    <div>
+        <h4>Post</h4>
+        @using (Html.BeginForm("PostMessage", "Groups", FormMethod.Post))
+        {
+            @Html.HiddenFor(model => model.GroupID)
+            <div class="form-group">
+                @Html.LabelFor(model => model.Messages)
+                @Html.TextArea("Enter Message", new { @class = "form-control", rows = 3 })
+            </div>
+            <button type="submit" class="btn btn-primary">New Message</button>
+        }
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Condition.Name)
-        </dt>
+    <hr />
 
-        <dd>
-            @Html.DisplayFor(model => model.Condition.Name)
-        </dd>
+    <div>
+        <h4>Messages</h4>
+        <ul>
+            @foreach (var message in Model.Messages)
+            {
+                <li>(@message.User.FirstName @message.User.LastName) <br/>@message.Title </li>
+            }
+        </ul>
+    </div>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.GroupID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.GroupID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
