@@ -28,7 +28,18 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = db.Groups.Find(id);
+            Group group = db.Groups
+                
+                 .Include(x => x.Condition)
+                .Include(x => x.GroupMembers)
+                .Include(x => x.GroupTags)
+                .Include(x => x.Messages.Select(m=>m.User))
+                .FirstOrDefault(g => g.GroupID == (int)id);
+
+            string detailsUrl = Url.Action("Details", "Groups", new { id = group.GroupID });
+            ViewBag.DetailsUrl = detailsUrl;
+            ViewBag.GroupName = group.Name;
+
             if (group == null)
             {
                 return HttpNotFound();
@@ -95,7 +106,7 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
         }
 
         // GET: GroupPage/Groups/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id) // TODO: how to make only creator to be able to delete reference user class 
         {
             if (id == null)
             {
@@ -109,8 +120,36 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
             return View(group);
         }
 
-        // POST: GroupPage/Groups/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost] // FIX TODO i added this cant test it used copilot to generate it who knows
+        [ValidateAntiForgeryToken]
+        public ActionResult PostMessage(int groupId, string messageContent)
+        {
+            if (ModelState.IsValid)
+            {
+                var group = db.Groups.Find(groupId);
+                if (group == null)
+                {
+                    return HttpNotFound();
+                }
+
+                var message = new Message
+                {
+                    GroupID = groupId,
+                    Content = messageContent,
+                };
+
+                db.Messages.Add(message);
+                db.SaveChanges();
+
+                return RedirectToAction("Details", new { id = groupId });
+            }
+
+
+            return RedirectToAction("Details", new { id = groupId });
+        }
+
+            // POST: GroupPage/Groups/Delete/5
+            [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
