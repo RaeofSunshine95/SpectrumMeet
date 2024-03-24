@@ -96,6 +96,7 @@
           <Property Name="PostedDate" Type="datetime" Nullable="false" />
           <Property Name="AccountID" Type="int" Nullable="false" />
           <Property Name="ParentMessageID" Type="int" />
+          <Property Name="MessageReadStatus" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ParentChild">
           <Key>
@@ -1092,6 +1093,7 @@
           <NavigationProperty Name="Message1" Relationship="OOPsieModel.FK_Message_Message" FromRole="Message" ToRole="Message1" />
           <NavigationProperty Name="Message2" Relationship="OOPsieModel.FK_Message_Message" FromRole="Message1" ToRole="Message" />
           <NavigationProperty Name="User" Relationship="OOPsieModel.FK_Message_User" FromRole="Message" ToRole="User" />
+          <Property Name="MessageReadStatus" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Message_Group">
           <End Type="OOPsieModel.Group" Role="Group" Multiplicity="1" />
@@ -1336,6 +1338,7 @@
           <EntitySetMapping Name="Messages">
             <EntityTypeMapping TypeName="OOPsieModel.Message">
               <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="MessageReadStatus" ColumnName="MessageReadStatus" />
                 <ScalarProperty Name="ParentMessageID" ColumnName="ParentMessageID" />
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
                 <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />

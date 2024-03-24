@@ -38,24 +38,37 @@ namespace SpectrumMeetEF
         }
         //Gets every message from a user's postedMessages that has been *replied to*
         //TODO: Add "read" and "unread" status to replies
-        public List<Message> getReplies() 
+        //DONE: Modified the database to have a read status, this function only matters for reply count
+        //Collapsed count and new reply functions since the replies page should show all replies regardless of read status
+        public int getNewReplyCount() 
         {
             List<Message> messages = new List<Message>();
             foreach (var message in postedMessages())
             {
                 foreach (var reply in db.Messages.Where(m=>m.ParentMessageID == message.MessageID))
                 {
+                    if (reply.MessageReadStatus == true)
+                    {
+                        messages.Add(reply);
+                    }
+                }
+            }
+            int count = messages.Count();
+            return count;
+        }
+        //Copied above function but for returning a list of replies instead of the amount of new ones
+        //The message status can be handled within the view itself (bold/unbolding certain message links)
+        public List<Message> getReplies()
+        {
+            List<Message> messages = new List<Message>();
+            foreach (var message in postedMessages())
+            {
+                foreach (var reply in db.Messages.Where(m => m.ParentMessageID == message.MessageID))
+                {
                     messages.Add(reply);
                 }
             }
             return messages;
-        }
-        //Simple count function to get the amount of unread replies
-        //TODO: Same as above, unread stuff only instead of every reply ever
-        public int getReplyCount()
-        {
-            int count = getReplies().Count();
-            return count;
         }
     }
 }
