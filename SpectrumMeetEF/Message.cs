@@ -27,6 +27,7 @@ namespace SpectrumMeetEF
         public System.DateTime PostedDate { get; set; }
         public int AccountID { get; set; }
         public Nullable<int> ParentMessageID { get; set; }
+        public bool MessageReadStatus { get; set; }
     
         public virtual Group Group { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
