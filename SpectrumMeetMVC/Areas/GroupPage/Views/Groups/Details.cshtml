@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2></h2>
+<h2>@Html.DisplayFor(model => model.Name)</h2>
 
 <div>
     <h4>Group Names</h4>
@@ -15,7 +15,9 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+        
+            <a href="@Url.Action("Details", "Groups", new { id = Model.GroupID })">@Html.DisplayFor(model => model.Name)</a>
+        
         </dd>
 
         <dt>
