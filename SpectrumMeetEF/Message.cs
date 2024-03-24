@@ -32,5 +32,6 @@ namespace SpectrumMeetEF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Message1 { get; set; }
         public virtual Message Message2 { get; set; }
+        public virtual User User { get; set; }
     }
 }

@@ -175,6 +175,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Account_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Child_SupportLevels">
           <End Role="SupportLevels" Type="Self.SupportLevels" Multiplicity="1" />
           <End Role="Child" Type="Self.Child" Multiplicity="*" />
@@ -331,6 +343,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Message_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ParentChild_Account">
           <End Role="Account" Type="Self.Account" Multiplicity="1" />
           <End Role="ParentChild" Type="Self.ParentChild" Multiplicity="*" />
@@ -444,6 +468,10 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="Account" EntitySet="Account" />
           </AssociationSet>
+          <AssociationSet Name="FK_Account_User" Association="Self.FK_Account_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
           <AssociationSet Name="FK_Child_SupportLevels" Association="Self.FK_Child_SupportLevels">
             <End Role="SupportLevels" EntitySet="SupportLevels" />
             <End Role="Child" EntitySet="Child" />
@@ -495,6 +523,10 @@
           <AssociationSet Name="FK_Message_Message" Association="Self.FK_Message_Message">
             <End Role="Message" EntitySet="Message" />
             <End Role="Message1" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User" Association="Self.FK_Message_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Message" EntitySet="Message" />
           </AssociationSet>
           <AssociationSet Name="FK_ParentChild_Account" Association="Self.FK_ParentChild_Account">
             <End Role="Account" EntitySet="Account" />
@@ -695,6 +727,7 @@
           <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Birthday" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Account" Relationship="Self.FK_Account_User" FromRole="User" ToRole="Account" />
+          <NavigationProperty Name="Messages" Relationship="OOPsieModel.FK_Message_User" FromRole="User" ToRole="Message" />
         </EntityType>
         <Association Name="FK_Account_Role">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
@@ -1028,6 +1061,10 @@
             <End Role="Tag" EntitySet="Tags" />
             <End Role="GroupTag" EntitySet="GroupTags" />
           </AssociationSet>
+          <AssociationSet Name="FK_Message_User" Association="OOPsieModel.FK_Message_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1054,6 +1091,7 @@
           <NavigationProperty Name="Group" Relationship="OOPsieModel.FK_Message_Group" FromRole="Message" ToRole="Group" />
           <NavigationProperty Name="Message1" Relationship="OOPsieModel.FK_Message_Message" FromRole="Message" ToRole="Message1" />
           <NavigationProperty Name="Message2" Relationship="OOPsieModel.FK_Message_Message" FromRole="Message1" ToRole="Message" />
+          <NavigationProperty Name="User" Relationship="OOPsieModel.FK_Message_User" FromRole="Message" ToRole="User" />
         </EntityType>
         <Association Name="FK_Message_Group">
           <End Type="OOPsieModel.Group" Role="Group" Multiplicity="1" />
@@ -1096,6 +1134,18 @@
             </Principal>
             <Dependent Role="GroupTag">
               <PropertyRef Name="TagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_User">
+          <End Type="OOPsieModel.User" Role="User" Multiplicity="1" />
+          <End Type="OOPsieModel.Message" Role="Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="AccountID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
