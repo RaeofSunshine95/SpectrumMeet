@@ -56,7 +56,7 @@
     <Compile Include="Account.cs">
       <DependentUpon>SpectrumMeet_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="BusinessLayer\GroupMessage.cs" />
+    <Compile Include="BusinessLayer\Message.cs" />
     <Compile Include="BusinessLayer\User.cs" />
     <Compile Include="Child.cs">
       <DependentUpon>SpectrumMeet_Model.tt</DependentUpon>
