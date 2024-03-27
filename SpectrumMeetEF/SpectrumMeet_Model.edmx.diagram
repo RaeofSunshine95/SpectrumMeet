@@ -13,7 +13,6 @@
         <EntityTypeShape EntityType="OOPsieModel.Group" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OOPsieModel.GroupMember" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="OOPsieModel.GroupRole" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OOPsieModel.GroupTag" Width="1.5" PointX="8.25" PointY="10.875" IsExpanded="true" />
         <EntityTypeShape EntityType="OOPsieModel.ParentChild" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="OOPsieModel.PrivateMessage" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="OOPsieModel.Role" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
@@ -34,14 +33,11 @@
         <AssociationConnector Association="OOPsieModel.FK_ChildCondition_Condition" ManuallyRouted="false" />
         <AssociationConnector Association="OOPsieModel.FK_Group_Condition" ManuallyRouted="false" />
         <AssociationConnector Association="OOPsieModel.FK_GroupMember_Group" ManuallyRouted="false" />
-        <AssociationConnector Association="OOPsieModel.FK_GroupTag_Group" ManuallyRouted="false" />
         <AssociationConnector Association="OOPsieModel.FK_GroupMember_GroupRole" ManuallyRouted="false" />
         <AssociationConnector Association="OOPsieModel.FK_PrivateMessage_PrivateMessage" ManuallyRouted="false" />
         <EntityTypeShape EntityType="OOPsieModel.Message" Width="1.5" PointX="5.25" PointY="20.5" />
         <AssociationConnector Association="OOPsieModel.FK_Message_Group" />
         <AssociationConnector Association="OOPsieModel.FK_Message_Message" />
-        <EntityTypeShape EntityType="OOPsieModel.Tag" Width="1.5" PointX="0.75" PointY="0.875" />
-        <AssociationConnector Association="OOPsieModel.FK_GroupTag_Tag" />
         <AssociationConnector Association="OOPsieModel.FK_Message_User" />
       </Diagram>
     </edmx:Diagrams>

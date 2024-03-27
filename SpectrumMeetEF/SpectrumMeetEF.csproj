@@ -79,9 +79,6 @@
     <Compile Include="GroupRole.cs">
       <DependentUpon>SpectrumMeet_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="GroupTag.cs">
-      <DependentUpon>SpectrumMeet_Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Message.cs">
       <DependentUpon>SpectrumMeet_Model.tt</DependentUpon>
     </Compile>
@@ -120,9 +117,6 @@
       <DependentUpon>SpectrumMeet_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagram.cs">
-      <DependentUpon>SpectrumMeet_Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Tag.cs">
       <DependentUpon>SpectrumMeet_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
