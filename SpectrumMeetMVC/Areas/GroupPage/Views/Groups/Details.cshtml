@@ -18,6 +18,7 @@
         @using (Html.BeginForm("PostMessage", "Groups", FormMethod.Post))
         {
             @Html.HiddenFor(model => model.GroupID)
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Messages)
                 @Html.TextArea("Enter Message", new { @class = "form-control", rows = 3 })
@@ -33,7 +34,7 @@
         <ul>
             @foreach (var message in Model.Messages)
             {
-                <li>(@message.User.FirstName @message.User.LastName) <br/>@message.Title </li>
+                <li>@message.User.FirstName @message.User.LastName <br/>@message.Title </li>
             }
         </ul>
     </div>

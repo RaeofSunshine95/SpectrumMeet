@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SpectrumMeetEF
 {
-    public partial class Message
+    public partial class GroupMessage
     {
-        public SpectrumMeetEntities db = new SpectrumMeetEntities();
+       
         
 
 
