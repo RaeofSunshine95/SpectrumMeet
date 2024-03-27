@@ -35,7 +35,6 @@ namespace SpectrumMeetEF
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<GroupMember> GroupMembers { get; set; }
         public virtual DbSet<GroupRole> GroupRoles { get; set; }
-        public virtual DbSet<GroupTag> GroupTags { get; set; }
         public virtual DbSet<ParentChild> ParentChilds { get; set; }
         public virtual DbSet<PrivateMessage> PrivateMessages { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
@@ -43,7 +42,6 @@ namespace SpectrumMeetEF
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
-        public virtual DbSet<Tag> Tags { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
