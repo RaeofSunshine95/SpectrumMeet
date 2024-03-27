@@ -32,7 +32,6 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
                 
                  .Include(x => x.Condition)
                 .Include(x => x.GroupMembers)
-                .Include(x => x.GroupTags)
                 .Include(x => x.Messages.Select(m=>m.User))
                 .FirstOrDefault(g => g.GroupID == (int)id);
 
