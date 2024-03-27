@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace SpectrumMeetEF
 {
-    public partial class GroupMessage
+    public partial class Message
     {
-       
+        public SpectrumMeetEntities db = new SpectrumMeetEntities();
         
         //Function takes two parameters, the message it's modifying and the account (found via session id)
         //Controller action will call this function using the session's accountID
