@@ -77,14 +77,6 @@
           <Property Name="Description" Type="varchar(max)" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="GroupTag">
-          <Key>
-            <PropertyRef Name="GroupTagID" />
-          </Key>
-          <Property Name="GroupTagID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TagID" Type="int" Nullable="false" />
-          <Property Name="GroupID" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Message">
           <Key>
             <PropertyRef Name="MessageID" />
@@ -144,13 +136,6 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
-        <EntityType Name="Tag">
-          <Key>
-            <PropertyRef Name="TagID" />
-          </Key>
-          <Property Name="TagID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -296,30 +281,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GroupTag_Group">
-          <End Role="Group" Type="Self.Group" Multiplicity="1" />
-          <End Role="GroupTag" Type="Self.GroupTag" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Group">
-              <PropertyRef Name="GroupID" />
-            </Principal>
-            <Dependent Role="GroupTag">
-              <PropertyRef Name="GroupID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GroupTag_Tag">
-          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
-          <End Role="GroupTag" Type="Self.GroupTag" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tag">
-              <PropertyRef Name="TagID" />
-            </Principal>
-            <Dependent Role="GroupTag">
-              <PropertyRef Name="TagID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Message_Group">
           <End Role="Group" Type="Self.Group" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
@@ -456,14 +417,12 @@
           <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupMember" EntityType="Self.GroupMember" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupRole" EntityType="Self.GroupRole" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="GroupTag" EntityType="Self.GroupTag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParentChild" EntityType="Self.ParentChild" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrivateMessage" EntityType="Self.PrivateMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupportLevels" EntityType="Self.SupportLevels" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Account_Role" Association="Self.FK_Account_Role">
             <End Role="Role" EntitySet="Role" />
@@ -508,14 +467,6 @@
           <AssociationSet Name="FK_GroupMember_GroupRole" Association="Self.FK_GroupMember_GroupRole">
             <End Role="GroupRole" EntitySet="GroupRole" />
             <End Role="GroupMember" EntitySet="GroupMember" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GroupTag_Group" Association="Self.FK_GroupTag_Group">
-            <End Role="Group" EntitySet="Group" />
-            <End Role="GroupTag" EntitySet="GroupTag" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GroupTag_Tag" Association="Self.FK_GroupTag_Tag">
-            <End Role="Tag" EntitySet="Tag" />
-            <End Role="GroupTag" EntitySet="GroupTag" />
           </AssociationSet>
           <AssociationSet Name="FK_Message_Group" Association="Self.FK_Message_Group">
             <End Role="Group" EntitySet="Group" />
@@ -627,7 +578,6 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Condition" Relationship="Self.FK_Group_Condition" FromRole="Group" ToRole="Condition" />
           <NavigationProperty Name="GroupMembers" Relationship="Self.FK_GroupMember_Group" FromRole="Group" ToRole="GroupMember" />
-          <NavigationProperty Name="GroupTags" Relationship="Self.FK_GroupTag_Group" FromRole="Group" ToRole="GroupTag" />
           <NavigationProperty Name="Messages" Relationship="OOPsieModel.FK_Message_Group" FromRole="Group" ToRole="Message" />
         </EntityType>
         <EntityType Name="GroupMember">
@@ -650,16 +600,6 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="GroupMembers" Relationship="Self.FK_GroupMember_GroupRole" FromRole="GroupRole" ToRole="GroupMember" />
-        </EntityType>
-        <EntityType Name="GroupTag">
-          <Key>
-            <PropertyRef Name="GroupTagID" />
-          </Key>
-          <Property Name="GroupTagID" Type="Int32" Nullable="false" />
-          <Property Name="TagID" Type="Int32" Nullable="false" />
-          <Property Name="GroupID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Group" Relationship="Self.FK_GroupTag_Group" FromRole="GroupTag" ToRole="Group" />
-          <NavigationProperty Name="Tag" Relationship="OOPsieModel.FK_GroupTag_Tag" FromRole="GroupTag" ToRole="Tag" />
         </EntityType>
         <EntityType Name="ParentChild">
           <Key>
@@ -898,18 +838,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GroupTag_Group">
-          <End Role="Group" Type="Self.Group" Multiplicity="1" />
-          <End Role="GroupTag" Type="Self.GroupTag" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Group">
-              <PropertyRef Name="GroupID" />
-            </Principal>
-            <Dependent Role="GroupTag">
-              <PropertyRef Name="GroupID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_GroupMember_GroupRole">
           <End Role="GroupRole" Type="Self.GroupRole" Multiplicity="1" />
           <End Role="GroupMember" Type="Self.GroupMember" Multiplicity="*" />
@@ -943,7 +871,6 @@
           <EntitySet Name="Groups" EntityType="Self.Group" />
           <EntitySet Name="GroupMembers" EntityType="Self.GroupMember" />
           <EntitySet Name="GroupRoles" EntityType="Self.GroupRole" />
-          <EntitySet Name="GroupTags" EntityType="Self.GroupTag" />
           <EntitySet Name="ParentChilds" EntityType="Self.ParentChild" />
           <EntitySet Name="PrivateMessages" EntityType="Self.PrivateMessage" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
@@ -1006,10 +933,6 @@
             <End Role="Group" EntitySet="Groups" />
             <End Role="GroupMember" EntitySet="GroupMembers" />
           </AssociationSet>
-          <AssociationSet Name="FK_GroupTag_Group" Association="Self.FK_GroupTag_Group">
-            <End Role="Group" EntitySet="Groups" />
-            <End Role="GroupTag" EntitySet="GroupTags" />
-          </AssociationSet>
           <AssociationSet Name="FK_GroupMember_GroupRole" Association="Self.FK_GroupMember_GroupRole">
             <End Role="GroupRole" EntitySet="GroupRoles" />
             <End Role="GroupMember" EntitySet="GroupMembers" />
@@ -1056,11 +979,6 @@
           <AssociationSet Name="FK_Message_Message" Association="OOPsieModel.FK_Message_Message">
             <End Role="Message" EntitySet="Messages" />
             <End Role="Message1" EntitySet="Messages" />
-          </AssociationSet>
-          <EntitySet Name="Tags" EntityType="OOPsieModel.Tag" />
-          <AssociationSet Name="FK_GroupTag_Tag" Association="OOPsieModel.FK_GroupTag_Tag">
-            <End Role="Tag" EntitySet="Tags" />
-            <End Role="GroupTag" EntitySet="GroupTags" />
           </AssociationSet>
           <AssociationSet Name="FK_Message_User" Association="OOPsieModel.FK_Message_User">
             <End Role="User" EntitySet="Users" />
@@ -1116,26 +1034,6 @@
             </Principal>
             <Dependent Role="Message1">
               <PropertyRef Name="ParentMessageID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Tag">
-          <Key>
-            <PropertyRef Name="TagID" />
-          </Key>
-          <Property Name="TagID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="GroupTags" Relationship="OOPsieModel.FK_GroupTag_Tag" FromRole="Tag" ToRole="GroupTag" />
-        </EntityType>
-        <Association Name="FK_GroupTag_Tag">
-          <End Type="OOPsieModel.Tag" Role="Tag" Multiplicity="1" />
-          <End Type="OOPsieModel.GroupTag" Role="GroupTag" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tag">
-              <PropertyRef Name="TagID" />
-            </Principal>
-            <Dependent Role="GroupTag">
-              <PropertyRef Name="TagID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1234,15 +1132,6 @@
                 <ScalarProperty Name="GroupRoleID" ColumnName="GroupRoleID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GroupTags">
-            <EntityTypeMapping TypeName="OOPsieModel.GroupTag">
-              <MappingFragment StoreEntitySet="GroupTag">
-                <ScalarProperty Name="GroupTagID" ColumnName="GroupTagID" />
-                <ScalarProperty Name="TagID" ColumnName="TagID" />
-                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1346,14 +1235,6 @@
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="GroupID" ColumnName="GroupID" />
                 <ScalarProperty Name="MessageID" ColumnName="MessageID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tags">
-            <EntityTypeMapping TypeName="OOPsieModel.Tag">
-              <MappingFragment StoreEntitySet="Tag">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="TagID" ColumnName="TagID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
