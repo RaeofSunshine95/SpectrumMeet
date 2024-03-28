@@ -17,7 +17,7 @@
         @using (Html.BeginForm("PostMessage", "Groups", FormMethod.Post))
         {
             @Html.HiddenFor(model => model.GroupID)
-
+            
             <div class="form-group">
                 @Html.LabelFor(model => model.Messages)
                 @Html.TextArea("Enter Message", new { @class = "form-control", rows = 3 })

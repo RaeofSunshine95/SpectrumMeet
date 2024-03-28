@@ -51,7 +51,7 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
         {
             ViewBag.ConditionID = new SelectList(db.Conditions, "ConditionID", "Name");
             return View();
-        }
+        }//do something similar to do new message and new post like line 61 TODO 
 
         // POST: GroupPage/Groups/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
@@ -121,7 +121,7 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
 
         [HttpPost] // FIX TODO i added this cant test it used copilot to generate it who knows
         [ValidateAntiForgeryToken]
-        public ActionResult PostMessage(int groupId, string messageContent)
+        public ActionResult PostMessage(SpectrumMeetMVC.Models.GroupMessagesModel viewModel, int groupId, string messageContent)
         {
             if (ModelState.IsValid)
             {
@@ -133,8 +133,9 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
 
                 var message = new Message
                 {
-                    GroupID = groupId,
-                    Content = messageContent,
+                    GroupID = viewModel.GroupId,
+                    Content = viewModel.Content,
+                    Title = viewModel.Title,
                 };
 
                 db.Messages.Add(message);
