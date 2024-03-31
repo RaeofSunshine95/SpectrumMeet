@@ -121,11 +121,7 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
             return View(group);
         }
 
-<<<<<<< HEAD
         [HttpPost,ActionName("PostMessage")]
-=======
-        [HttpPost,ActionName("PostMessage")] // FIX TODO i added this cant test it used copilot to generate it who knows
->>>>>>> ce3d842ae68b76b3740df6fadec731848f2ee999
         [ValidateAntiForgeryToken]
         public ActionResult PostMessage(int groupId, string messageSubject, string messageContent)
         {
