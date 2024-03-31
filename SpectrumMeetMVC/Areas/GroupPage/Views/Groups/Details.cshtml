@@ -2,43 +2,76 @@
 @{
     ViewBag.Title = "Details";
 }
-
 <h2>Group: @Html.DisplayFor(model => model.Name)</h2>
 
 <h3>
-    For @Html.DisplayFor(model => model.Condition.Name)</h3>
+    For: @Html.DisplayFor(model => model.Condition.Name)
+</h3>
 
- 
 
-    <hr />
+<hr />
 
-    <div>
-        <h4>Post</h4>
-        @using (Html.BeginForm("PostMessage", "Groups", FormMethod.Post))
+<div>
+    <h4>Create New Message</h4>
+    @using (Html.BeginForm("PostMessage", "Groups", FormMethod.Post))
+
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        if (TempData["ErrorMessage"] != null)
         {
-            @Html.HiddenFor(model => model.GroupID)
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Messages)
-                @Html.TextArea("Enter Message", new { @class = "form-control", rows = 3 })
+            <div class="alert alert-info" style="width:35%">
+                <alert class="text-bg-info">
+                    @TempData["ErrorMessage"]
+                </alert>
             </div>
-            <button type="submit" class="btn btn-primary">New Message</button>
         }
-    </div>
+        @Html.HiddenFor(model => model.GroupID)
 
-    <hr />
+        <div class="form-group">
+            @Html.Label("Subject")
+            <p>@Html.TextBox("messageSubject", null, new { placeholder = "Enter Subject", @class = "form-control" }) </p>
+            @Html.Label("Message")
+            @Html.TextArea("messageContent", new { placeholder = "Enter Message", @class = "form-control form-control-lg", rows = 3 })
+        </div>
+        <input type="submit" value="New Message" class="btn btn-primary">
+    }
+</div>
 
-    <div>
-        <h4>Messages</h4>
-        <ul>
-            @foreach (var message in Model.Messages)
-            {
-                <li>@message.User.FirstName @message.User.LastName <br/>@message.Title </li>
-            }
-        </ul>
-    </div>
+<hr />
 
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.GroupID }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+<div>
+    <h4>Messages</h4>
+    <table class="table table-light table-striped table-hover table-bordered w-auto overflow-auto">
+        <thead>
+            <tr class="table-primary">
+                <th scope="col">User Name</th>
+                <th scope="col">Post Date</th>
+                <th scope="col">Message Title</th>
+                <th scope="col">Content</th>
+            </tr>
+        </thead>
+        @foreach (var message in Model.Messages)
+        {
+            <tr class="clickable-row" title="@message.Title" onclick="location.href='@Url.Action("Details", null, new {id = message.MessageID, area = "MessageBoard", controller="Messages"})'">
+                <th scope="row" class="w-auto">
+                    @message.User.FirstName @message.User.LastName
+                </th>
+                <td class="overflow-auto">
+                    @message.PostedDate.ToShortDateString()
+                </td>
+                <td class="w-25">
+                    <b>@message.Title</b>
+                </td>
+                <td class="w-50">
+                    @message.Content
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.GroupID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

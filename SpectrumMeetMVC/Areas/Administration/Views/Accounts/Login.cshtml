@@ -1,6 +1,6 @@
 ﻿@model SpectrumMeetEF.Account
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Log In";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -16,21 +16,27 @@
     @Html.ValidationSummary(true)
     if (ViewBag.Message != null)
      {
-        <p style="border: 1px solid red">
+        <div class="alert alert-danger">
             @ViewBag.Message
-        </p>
+        </div>
      }
-    <table border="0">
+    <table>
         <tr>
-            <td>@Html.DisplayNameFor(a=> a.Username)</td>
-            <td>@Html.EditorFor(a=> a.Username)</td>
+            <td class="form-label">@Html.DisplayNameFor(a=> a.Username)</td>
+        </tr>
+        <tr>
+            <td>@Html.TextBoxFor(a=> a.Username, new { placeholder="Enter Username", @class = "form-control"})</td>
             <td>@Html.ValidationMessageFor(a=> a.Username) </td>
         </tr>
         <tr>
-            <td>@Html.DisplayNameFor(a => a.Password)</td>
-            <td>@Html.EditorFor(a => a.Password)</td>
+            <td class="form-label">@Html.DisplayNameFor(a => a.Password)</td>
+        </tr>
+        <tr>
+            <td>@Html.TextBoxFor(a => a.Password, new { type="password",placeholder="Enter Password", @class = "form-control" })</td>
             <td>@Html.ValidationMessageFor(a => a.Password) </td>
         </tr>
-        <tr><td><input type="submit" value="Login"/></td></tr>
     </table>
+    <br />
+    <input type="submit" value="Log In" class="btn btn-primary"/>
+
 }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SpectrumMeetMVC.Models
 {
-    public class TestModel
+    public class testmodel
     {
     }
 }
