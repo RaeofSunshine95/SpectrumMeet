@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SpectrumMeetEF;
+using SpectrumMeetMVC.Models;
 
 namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
 {
@@ -30,11 +31,12 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
             }
             Group group = db.Groups
                 
-                 .Include(x => x.Condition)
-                .Include(x => x.GroupMembers)
-                .Include(x => x.Messages.Select(m=>m.User))
-                .FirstOrDefault(g => g.GroupID == (int)id);
-
+            .Include(x => x.Condition)
+            .Include(x => x.GroupMembers)
+            .Include(x => x.Messages.Select(m => m.User))
+            .Include(x => x.Messages)
+            .FirstOrDefault(g => g.GroupID == (int)id);
+                
             string detailsUrl = Url.Action("Details", "Groups", new { id = group.GroupID });
             ViewBag.DetailsUrl = detailsUrl;
             ViewBag.GroupName = group.Name;
@@ -51,7 +53,7 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
         {
             ViewBag.ConditionID = new SelectList(db.Conditions, "ConditionID", "Name");
             return View();
-        }//do something similar to do new message and new post like line 61 TODO 
+        }
 
         // POST: GroupPage/Groups/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
@@ -119,23 +121,29 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
             return View(group);
         }
 
-        [HttpPost] // FIX TODO i added this cant test it used copilot to generate it who knows
+        [HttpPost,ActionName("PostMessage")]
         [ValidateAntiForgeryToken]
-        public ActionResult PostMessage(SpectrumMeetMVC.Models.GroupMessagesModel viewModel, int groupId, string messageContent)
+        public ActionResult PostMessage(int groupId, string messageSubject, string messageContent)
         {
             if (ModelState.IsValid)
             {
                 var group = db.Groups.Find(groupId);
+                if (Session["AccountID"] == null)
+                {
+                    TempData["ErrorMessage"] = "You must be logged in to post messages!";
+                    return RedirectToAction("Details", new { id = groupId});
+                }
                 if (group == null)
                 {
                     return HttpNotFound();
                 }
-
                 var message = new Message
                 {
-                    GroupID = viewModel.GroupId,
-                    Content = viewModel.Content,
-                    Title = viewModel.Title,
+                    GroupID = groupId,
+                    Title = messageSubject,
+                    Content = messageContent,
+                    PostedDate = DateTime.Now,
+                    AccountID = (int)Session["AccountID"]
                 };
 
                 db.Messages.Add(message);

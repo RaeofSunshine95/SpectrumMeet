@@ -141,12 +141,13 @@ namespace SpectrumMeetMVC.Areas.Administration.Controllers
                 var obj = db.Accounts.Where(a => a.Username.Equals(objAccount.Username) && a.Password.Equals(objAccount.Password)).FirstOrDefault();
                 if (obj != null)
                 {
-                    Session["AccountID"] = obj.AccountID.ToString();
+                    Session["AccountID"] = obj.AccountID;
                     Session["Username"] = obj.Username.ToString();
                     return RedirectToAction("Details",null, new {area="UserProfile", controller="Users", id = obj.AccountID});
                 }
             }
-            return View(objAccount);
+            ViewBag.Message = "Invalid Username or Password!";
+            return View();
         }
         protected override void Dispose(bool disposing)
         {
