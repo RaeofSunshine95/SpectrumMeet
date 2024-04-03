@@ -1,0 +1,32 @@
+
+
+/* Team.html styling */
+.img-fluid {
+    height: 13rem;
+    width: 100%;
+}
+
+.behind_specmeet_h1 {
+    text-align: center;
+    color: #22ABCB;
+}
+
+.behind_specmeet_p {
+    text-align: left;
+    width: 50vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer_nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.footer_nav a {
+    margin-left: 1rem;
+}
+
+.footer_nav_h4 {
+    color: #E3702F !important;
+}
