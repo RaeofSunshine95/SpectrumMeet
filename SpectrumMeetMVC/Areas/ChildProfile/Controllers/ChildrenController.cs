@@ -33,6 +33,11 @@ namespace SpectrumMeetMVC.Areas.ChildProfile.Controllers
             {
                 return HttpNotFound();
             }
+            //ViewBag.ChildName = child.Name;
+            //ViewBag.ChildBirthDate = child.BirthDate;
+            //ViewBag.ChildVerbal = child.Verbal;
+            //ViewBag.ChildDescription = child.Description;
+            //ViewBag.LevelName = db.SupportLevels.FirstOrDefault(s => s.LevelID == child.LevelID)?.Name;
             return View(child);
         }
 
@@ -48,7 +53,7 @@ namespace SpectrumMeetMVC.Areas.ChildProfile.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ChildID,Name,BirthDate,Verbal,Description,LevelID")] Child child)
+        public ActionResult Create([Bind(Include = "Name,BirthDate,Verbal,Description,LevelID")] Child child)
         {
             if (ModelState.IsValid)
             {
