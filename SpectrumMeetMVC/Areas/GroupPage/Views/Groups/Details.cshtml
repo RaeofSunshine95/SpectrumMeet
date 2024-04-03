@@ -30,7 +30,7 @@
 
         <div class="form-group">
             @Html.Label("Subject")
-            <p>@Html.TextBox("messageSubject", null, new { placeholder = "Enter Subject", @class = "form-control" }) </p>
+            <p>@Html.TextBox("messageSubject", null, new { maxLength = 120, placeholder = "Enter Subject", @class = "form-control" }) </p>
             @Html.Label("Message")
             @Html.TextArea("messageContent", new { placeholder = "Enter Message", @class = "form-control form-control-lg", rows = 3 })
         </div>
@@ -64,8 +64,8 @@
                 </td>
             </tr>
             <tr class="clickable-row" title="@message.Title" onclick="location.href='@Url.Action("Details", null, new {id = message.MessageID, area = "MessageBoard", controller="Messages"})'">
-                <td class="w-auto" colspan="3">
-                    @message.Content
+                <td colspan="3">
+                    <div class="overflow-auto h-25" style="max-height:200px">@message.Content</div>   
                 </td>
             </tr>
          }
