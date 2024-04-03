@@ -30,7 +30,7 @@
 
         <div class="form-group">
             @Html.Label("Subject")
-            <p>@Html.TextBox("messageSubject", null, new { placeholder = "Enter Subject", @class = "form-control" }) </p>
+            <p>@Html.TextBox("messageSubject", null, new { maxLength = 120, placeholder = "Enter Subject", @class = "form-control" }) </p>
             @Html.Label("Message")
             @Html.TextArea("messageContent", new { placeholder = "Enter Message", @class = "form-control form-control-lg", rows = 3 })
         </div>
@@ -48,27 +48,28 @@
                 <th scope="col">User Name</th>
                 <th scope="col">Post Date</th>
                 <th scope="col">Message Title</th>
-                <th scope="col">Content</th>
             </tr>
         </thead>
         @foreach (var message in Model.Messages)
         {
             <tr class="clickable-row" title="@message.Title" onclick="location.href='@Url.Action("Details", null, new {id = message.MessageID, area = "MessageBoard", controller="Messages"})'">
-                <th scope="row" class="w-auto">
+                <th scope="row" class="w-25">
                     @message.User.FirstName @message.User.LastName
                 </th>
-                <td class="overflow-auto">
-                    @message.PostedDate.ToShortDateString()
-                </td>
-                <td class="w-25">
-                    <b>@message.Title</b>
+                <td class="overflow-auto w-25">
+                    <b>@message.PostedDate.ToShortDateString()</b>
                 </td>
                 <td class="w-50">
-                    @message.Content
+                    <b>@message.Title</b>
                 </td>
             </tr>
-        }
-    </table>
+            <tr class="clickable-row" title="@message.Title" onclick="location.href='@Url.Action("Details", null, new {id = message.MessageID, area = "MessageBoard", controller="Messages"})'">
+                <td colspan="3">
+                    <div class="overflow-auto h-25" style="max-height:200px">@message.Content</div>   
+                </td>
+            </tr>
+         }
+        </table>
 </div>
 
 <p>

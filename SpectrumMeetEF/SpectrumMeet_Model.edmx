@@ -83,7 +83,7 @@
           </Key>
           <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GroupID" Type="int" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="120" Nullable="false" />
           <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PostedDate" Type="datetime" Nullable="false" />
           <Property Name="AccountID" Type="int" Nullable="false" />
@@ -1002,7 +1002,7 @@
           </Key>
           <Property Name="MessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GroupID" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
           <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PostedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AccountID" Type="Int32" Nullable="false" />
