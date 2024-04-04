@@ -25,15 +25,15 @@
             <td class="form-label">@Html.DisplayNameFor(a=> a.Username)</td>
         </tr>
         <tr>
-            <td>@Html.TextBoxFor(a=> a.Username, new { placeholder="Enter Username", @class = "form-control"})</td>
-            <td>@Html.ValidationMessageFor(a=> a.Username) </td>
+            <td>@Html.TextBoxFor(a=> a.Username, new { maxLength=50, placeholder="Enter Username", @class = "form-control"}) </td>
+            <td>@Html.ValidationMessageFor(a=> a.Username) Username: DaliaGhanem </td>
         </tr>
         <tr>
             <td class="form-label">@Html.DisplayNameFor(a => a.Password)</td>
         </tr>
         <tr>
-            <td>@Html.TextBoxFor(a => a.Password, new { type="password",placeholder="Enter Password", @class = "form-control" })</td>
-            <td>@Html.ValidationMessageFor(a => a.Password) </td>
+            <td>@Html.TextBoxFor(a => a.Password, new { maxLength=50, type="password",placeholder="Enter Password", @class = "form-control" })</td>
+            <td>@Html.ValidationMessageFor(a => a.Password) Password: pw1</td>
         </tr>
     </table>
     <br />
