@@ -114,7 +114,12 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
         {
             if (Session["AccountID"] != null)
             {
-                var userProfile = db.Users.Find(Convert.ToInt32(Session["AccountID"]));
+                var accountId = (int)Session["AccountID"];
+                var userProfile = db.Users
+                    .Include(u => u.Account.ParentChilds.Select(pc=>pc.Child))
+//add another include to have the descrptions and conditions and stuff for the child TODO
+                    .FirstOrDefault(u => u.AccountID == accountId);
+                    
                 return View(userProfile);
             }
             else
