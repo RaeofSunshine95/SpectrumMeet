@@ -27,7 +27,7 @@ namespace SpectrumMeetEF
         }
         //Gets every message a user has posted and returns them in a list
         //format
-        public List<Message> postedMessages()
+        public List<Message> PostedMessages()
         {
             List<Message> messages = new List<Message>();
             foreach (var message in db.Messages.Where(m => m.AccountID == AccountID)) 
@@ -40,10 +40,10 @@ namespace SpectrumMeetEF
         //TODO: Add "read" and "unread" status to replies
         //DONE: Modified the database to have a read status, this function only matters for reply count
         //Collapsed count and new reply functions since the replies page should show all replies regardless of read status
-        public int getNewReplyCount() 
+        public int GetNewReplyCount() 
         {
             List<Message> messages = new List<Message>();
-            foreach (var message in postedMessages())
+            foreach (var message in PostedMessages())
             {
                 foreach (var reply in db.Messages.Where(m=>m.ParentMessageID == message.MessageID))
                 {
@@ -58,16 +58,17 @@ namespace SpectrumMeetEF
         }
         //Copied above function but for returning a list of replies instead of the amount of new ones
         //The message status can be handled within the view itself (bold/unbolding certain message links)
-        public List<Message> getReplies()
+        public List<Message> GetReplies()
         {
             List<Message> messages = new List<Message>();
-            foreach (var message in postedMessages())
+            foreach (var message in PostedMessages())
             {
                 foreach (var reply in db.Messages.Where(m => m.ParentMessageID == message.MessageID))
                 {
                     messages.Add(reply);
                 }
             }
+            messages.OrderByDescending(m => m.PostedDate);
             return messages;
         }
     }

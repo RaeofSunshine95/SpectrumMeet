@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using SpectrumMeetEF;
@@ -12,7 +13,7 @@ namespace SpectrumMeetMVC.Areas.MessageBoard.Controllers
 {
     public class MessagesController : Controller
     {
-        private SpectrumMeetEntities db = new SpectrumMeetEntities();
+        private readonly SpectrumMeetEntities db = new SpectrumMeetEntities();
 
         // GET: MessageBoard/Messages
         public ActionResult Index()
@@ -28,7 +29,11 @@ namespace SpectrumMeetMVC.Areas.MessageBoard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Message message = db.Messages.Find(id);
+            Message message = db.Messages
+            .Include(m=> m.User)
+            .Include(m=>m.Message2.User)
+            .FirstOrDefault(x => x.MessageID == (int)id);
+            
             if (message == null)
             {
                 return HttpNotFound();
@@ -124,6 +129,35 @@ namespace SpectrumMeetMVC.Areas.MessageBoard.Controllers
             return RedirectToAction("Index");
         }
 
+        // Reply Function Below!!
+        [HttpPost, ActionName("PostReply")]
+        [ValidateAntiForgeryToken]
+        public ActionResult PostReply(int MessageID, string messageContent)
+        {
+            if (ModelState.IsValid)
+            {
+                var parentMessage = db.Messages.Find(MessageID);
+                if (Session["AccountID"] == null)
+                {
+                    {
+                        TempData["ErrorMessage"] = "You must be logged in to post replies!";
+                        return RedirectToAction("Details", new { id = MessageID });
+                    }
+                }
+                var message = new Message
+                {
+                    GroupID = parentMessage.GroupID,
+                    Content = messageContent,
+                    ParentMessageID = MessageID,
+                    PostedDate = DateTime.Now,
+                    AccountID = (int)Session["AccountID"]
+                };
+                db.Messages.Add(message);
+                db.SaveChanges();
+                return RedirectToAction("Details", new { id = MessageID });
+            }
+            return RedirectToAction("Details", new { id = MessageID });
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
