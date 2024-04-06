@@ -13,7 +13,7 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
 {
     public class GroupsController : Controller
     {
-        private SpectrumMeetEntities db = new SpectrumMeetEntities();
+        private readonly SpectrumMeetEntities db = new SpectrumMeetEntities();
 
         // GET: GroupPage/Groups
         public ActionResult Index()
@@ -136,6 +136,11 @@ namespace SpectrumMeetMVC.Areas.GroupPage.Controllers
                 if (group == null)
                 {
                     return HttpNotFound();
+                }
+                if ( messageSubject == null)
+                {
+                    TempData["ErrorMessage"] = "Please enter a subject!";
+                    return RedirectToAction("Details", new {id = groupId});
                 }
                 var message = new Message
                 {
