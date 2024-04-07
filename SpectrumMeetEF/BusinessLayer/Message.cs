@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Migrations;
+using System.Data.SqlClient;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
@@ -35,6 +37,27 @@ namespace SpectrumMeetEF
                     }
                 }  
             }
+        }
+        public List<Message> GetAllChildren()
+        {
+            List<Message> children = new List<Message>();
+            SqlParameter anchorId = new SqlParameter("@anchorId", MessageID);
+            var rh = db.Database.SqlQuery<Message>("EXEC RecursiveHierarchy @anchorId", anchorId);
+            foreach (var child in rh )
+            {
+                Message m = new Message();
+                m.GroupID = child.GroupID;
+                m.AccountID = child.AccountID;
+                m.MessageID = child.MessageID;
+                m.Title = child.Title;
+                m.Content = child.Content;
+                m.ParentMessageID = child.ParentMessageID;
+                m.PostedDate = child.PostedDate;
+                m.MessageReadStatus = child.MessageReadStatus;
+                m.User = db.Users.Find(child.AccountID);
+                children.Add(m);
+            }
+            return children;
         }
     }
 }

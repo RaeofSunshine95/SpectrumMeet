@@ -145,5 +145,14 @@ namespace SpectrumMeetEF
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual ObjectResult<RecursiveHierarchy_Result> RecursiveHierarchy(Nullable<int> anchorID)
+        {
+            var anchorIDParameter = anchorID.HasValue ?
+                new ObjectParameter("anchorID", anchorID) :
+                new ObjectParameter("anchorID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RecursiveHierarchy_Result>("RecursiveHierarchy", anchorIDParameter);
+        }
     }
 }

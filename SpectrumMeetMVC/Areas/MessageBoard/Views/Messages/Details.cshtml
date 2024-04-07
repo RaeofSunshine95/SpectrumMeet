@@ -10,126 +10,61 @@
 
 <div>
     <h4>Posted In: @Html.DisplayFor(model => model.Group.Name)</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayFor(model => model.PostedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-    </dl>
-    <hr />
     @{
-        bool sentinel = false;
-        List<SpectrumMeetEF.Message> replies = Model.User.GetReplies();
-        SpectrumMeetEF.Message head = Model;
-    }
-    @{ 
-//Okay this is objectively bad code and I need to probably buckle down and retrieve a hierarchal representation of the data as
-//A stored procedure in the SQL database. Probably going to contact Bob or Amanda for that, for now I think this implimentation
-//doesn't result in an infinite loop but I'm honestly not sure yet
-//--- UPDATE ---
-//Cleaned up the loop, got rid of the nested loop as it isn't needed, this SHOULD drill down the hierarchy until it finds no more replies to grab, but honestly
-//I think this is probably a terrible stupid awful way to implement this so this entire block may be subject to radical change to avoid the insane amount of database calls
-//this will generate.
-//--- UPDATE 2 ---
-//Commented out my idiot code because it made an infinite loop. I'll revisit this with a proper stored procedure later, spent too much time on it and my head hurts.
-    }
-    @*while (sentinel != true)
-    {*@
-        @foreach (var message in replies)
+
+        var children = Model.GetAllChildren().OrderBy(m => m.PostedDate);
+        foreach (var message in children)
         {
-            
-            if (message.ParentMessageID != head.MessageID)
+            if (message.ParentMessageID == Model.MessageID || message.MessageID == Model.MessageID)
             {
-                replies.Remove(message);
-                continue;
+                <div class="basemessage" id="@message.MessageID">
+                    <p><b>@message.User.FirstName @message.User.LastName</b> on @message.PostedDate.ToShortDateString() at @message.PostedDate.ToShortTimeString()</p>
+                    <hr />
+                    <p> @message.Content</p>
+                </div>
             }
-            <div style="margin-left:30px">
-                <p><b>@message.User.FirstName @message.User.LastName</b> on @message.PostedDate.ToLongDateString() at @message.PostedDate.ToShortTimeString()</p>
-                <hr />
-                <p>@message.Content</p>
-                
-                @*if (message.User.GetReplies() != null)
-                {
-                    SpectrumMeetEF.Message oldhead = head;
-                    bool sentinel2 = false;
-                    head = message;
-                    List<SpectrumMeetEF.Message> nestedMessages = head.User.GetReplies();
-                    while (sentinel2 != true)
-                    {
-                        foreach (var nestedMessage in nestedMessages)
-                        {
-                            if (nestedMessage.ParentMessageID != head.MessageID)
-                            {
-                                nestedMessages.Remove(nestedMessage);
-                            }
-                            <div style="margin-left:30px">
-                                <p><b>@nestedMessage.User.FirstName @nestedMessage.User.LastName</b> on @nestedMessage.PostedDate.ToLongDateString() at @nestedMessage.PostedDate.ToShortTimeString()</p>
-                                <hr />
-                                <p>@nestedMessage.Content</p>
-                            
-                            @if (head.Message2.User.GetReplies() == null)
-                            {
-                                sentinel2 = true;
-                                break;
-                            }
-                            else
-                            {
-                                bool sentinel3 = false;
-                                List<SpectrumMeetEF.Message> nestedMessageReplies = head.Message2.User.GetReplies();
-                                while (sentinel3 != true)
-                                {
-                                    foreach (var reply in nestedMessageReplies)
-                                    {
-                                        if (reply.ParentMessageID != head.Message2.MessageID)
-                                        {
-                                            nestedMessageReplies.Remove(reply);
-                                        }
-                                        <div style="margin-left:30px">
-                                            <p><b>@reply.User.FirstName @reply.User.LastName</b> on @reply.PostedDate.ToLongDateString() at @reply.PostedDate.ToShortTimeString()</p>
-                                            <hr />
-                                            <p>@reply.Content</p>
-                                        </div>
-                                        if(reply.User.GetReplies() == null)
-                                        {
-                                            sentinel3 = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        </div>
-                        head = oldhead;
-                        }
+            else
+            {
+                <div class="reply" style="margin-left:30px;">
+                    <p><b>@message.User.FirstName @message.User.LastName</b> on @message.PostedDate.ToShortDateString() at @message.PostedDate.ToShortTimeString()</p>
+                    <hr />
+                    <p> @message.Content</p>
+                </div>
+                <script>
+                $(document).ready(function () {
+                function appendReply(id) {
+                    var $base = document.getElementById(id)
+                    $base.appendChild($('.reply'))
                     }
-                 }
-            else*@
+                appendReply("@message.ParentMessageID");
+                });
+                </script>
+            }
+        }
+    }
+
+    @using (Html.BeginForm("PostReply", "Messages", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-info" style="width:35%">
+                <alert class="text-bg-info">
+                    @TempData["ErrorMessage"]
+                </alert>
             </div>
         }
-                @using (Html.BeginForm("PostReply", "Messages", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true)
-
-                    if (TempData["ErrorMessage"] != null)
-                    {
-                        <div class="alert alert-info" style="width:35%">
-                            <alert class="text-bg-info">
-                                @TempData["ErrorMessage"]
-                            </alert>
-                        </div>
-                    }
-                    @Html.HiddenFor(model => model.MessageID)
-                    <div class="form-group">
-                        @Html.Label("Reply")
-                        @Html.TextArea("messageContent", new { placeholder = "Enter Reply", @class = "form-control form-control-lg", rows = 3 })
-                    </div>
-                    <input type="submit" value="New Reply" class="btn btn-primary">
-                }
-            </div>
+        @Html.HiddenFor(model => model.MessageID)
+        <div class="form-group">
+            @Html.Label("Reply")
+            @Html.TextArea("messageContent", new { placeholder = "Enter Reply", @class = "form-control form-control-lg", rows = 3 })
+        </div>
+        <input type="submit" value="New Reply" class="btn btn-primary">
+    }
+</div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.MessageID }) |
-    @Html.ActionLink("Back to List", "Details", new { area = "GroupPage", controller="Groups", id = Model.GroupID})
+    @Html.ActionLink("Back to List", "Details", new { area = "GroupPage", controller = "Groups", id = Model.GroupID })
 </p>
