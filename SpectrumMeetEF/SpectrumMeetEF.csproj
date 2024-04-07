@@ -89,6 +89,9 @@
       <DependentUpon>SpectrumMeet_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecursiveHierarchy_Result.cs">
+      <DependentUpon>SpectrumMeet_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Role.cs">
       <DependentUpon>SpectrumMeet_Model.tt</DependentUpon>
     </Compile>

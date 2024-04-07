@@ -378,6 +378,9 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="RecursiveHierarchy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="anchorID" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -984,6 +987,9 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
+          <FunctionImport Name="RecursiveHierarchy" ReturnType="Collection(OOPsieModel.RecursiveHierarchy_Result)">
+          <Parameter Name="anchorID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1049,6 +1055,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="RecursiveHierarchy_Result">
+          <Property Type="Int32" Name="MessageID" Nullable="true" />
+          <Property Type="Int32" Name="GroupID" Nullable="true" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="120" />
+          <Property Type="String" Name="Content" Nullable="true" />
+          <Property Type="DateTime" Name="PostedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="AccountID" Nullable="true" />
+          <Property Type="Int32" Name="ParentMessageID" Nullable="true" />
+          <Property Type="Boolean" Name="MessageReadStatus" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1238,6 +1254,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="RecursiveHierarchy" FunctionName="OOPsieModel.Store.RecursiveHierarchy">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OOPsieModel.RecursiveHierarchy_Result">
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="ParentMessageID" ColumnName="ParentMessageID" />
+                <ScalarProperty Name="MessageReadStatus" ColumnName="MessageReadStatus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
