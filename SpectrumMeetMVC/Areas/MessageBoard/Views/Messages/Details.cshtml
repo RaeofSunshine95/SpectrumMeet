@@ -25,16 +25,21 @@
             }
             else
             {
-                <div class="reply" id="@message.ParentMessageID" style="margin-left:30px;">
+                <div class="reply" style="margin-left:30px;">
                     <p><b>@message.User.FirstName @message.User.LastName</b> on @message.PostedDate.ToShortDateString() at @message.PostedDate.ToShortTimeString()</p>
                     <hr />
                     <p> @message.Content</p>
                 </div>
                 <script>
-                appendReply(@message.ParentMessageID);
+                $(document).ready(function () {
+                function appendReply(id) {
+                    var $base = document.getElementById(id)
+                    $base.appendChild($('.reply'))
+                    }
+                appendReply("@message.ParentMessageID");
+                });
                 </script>
             }
-
         }
     }
 
@@ -63,16 +68,3 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.MessageID }) |
     @Html.ActionLink("Back to List", "Details", new { area = "GroupPage", controller = "Groups", id = Model.GroupID })
 </p>
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            function appendReply(id) {
-                $('.basemessage').each(function () {
-                    if (id == $(this).attr('id')) {
-                        $(this).appendChild($('.reply'))
-                    }
-             });
-    </script>
-}
-
