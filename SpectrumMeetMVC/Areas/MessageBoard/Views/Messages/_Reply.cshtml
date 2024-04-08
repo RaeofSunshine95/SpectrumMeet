@@ -4,8 +4,8 @@
     <p><b>@Model.User.FirstName @Model.User.LastName</b> on @Model.PostedDate.ToShortDateString() at @Model.PostedDate.ToShortTimeString()</p>
     <hr class="w-25" />
     <p> @Model.Content</p>
-    <p>MY ID IS @Model.MessageID</p>
-    <p>MY PARENT MESSAGE IS @Model.ParentMessageID</p>
+    @*<p>MY ID IS @Model.MessageID</p>
+    <p>MY PARENT MESSAGE IS @Model.ParentMessageID</p>*@
     @Html.ActionLink("Reply", "Details", new { id = Model.MessageID, area = "MessageBoard", controller = "Messages" })
 </div>
 @{ 
@@ -18,9 +18,13 @@
     {
         foreach (var reply in replylist)
         {
+            if (reply.ParentMessageID == Model.MessageID)
+            {
+
             <div style="margin-left:5%">
                 @Html.Partial("_Reply", reply)
             </div>
+                }
+            }
         }
     }
-}
