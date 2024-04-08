@@ -18,9 +18,13 @@
     {
         foreach (var reply in replylist)
         {
+            if (reply.ParentMessageID == Model.MessageID)
+            {
+
             <div style="margin-left:5%">
                 @Html.Partial("_Reply", reply)
             </div>
+                }
+            }
         }
     }
-}
