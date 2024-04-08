@@ -282,6 +282,8 @@
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Administration\Views\Accounts\Login.cshtml" />
     <Content Include="Areas\UserProfile\Views\Shared\_ParentChildView.cshtml" />
+    <Content Include="Areas\MessageBoard\Views\Messages\_Reply.cshtml" />
+    <Content Include="Areas\MessageBoard\Views\Messages\_ReplyBox.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

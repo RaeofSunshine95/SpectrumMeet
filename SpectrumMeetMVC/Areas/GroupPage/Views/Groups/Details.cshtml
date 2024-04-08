@@ -52,7 +52,10 @@
         </thead>
         @foreach (var message in Model.Messages)
         {
-            <tr class="clickable-row" title="@message.Title" onclick="location.href='@Url.Action("Details", null, new {id = message.MessageID, area = "MessageBoard", controller="Messages"})'">
+            if (message.ParentMessageID == null)
+            {
+
+            <tr class="clickable-row" title="@message.Title" onclick="location.href='@Url.Action("Details", null, new { id = message.MessageID, area = "MessageBoard", controller = "Messages" })'">
                 <th scope="row" class="w-25">
                     @message.User.FirstName @message.User.LastName
                 </th>
@@ -63,12 +66,17 @@
                     <b>@message.Title</b>
                 </td>
             </tr>
-            <tr class="clickable-row" title="@message.Title" onclick="location.href='@Url.Action("Details", null, new {id = message.MessageID, area = "MessageBoard", controller="Messages"})'">
+            <tr class="clickable-row" title="@message.Title" onclick="location.href='@Url.Action("Details", null, new { id = message.MessageID, area = "MessageBoard", controller = "Messages" })'">
                 <td colspan="3">
                     <div class="overflow-auto h-25" style="max-height:200px">@message.Content</div>   
                 </td>
             </tr>
-         }
+            }
+            else
+            {
+                continue;
+            }
+        }
         </table>
 </div>
 
