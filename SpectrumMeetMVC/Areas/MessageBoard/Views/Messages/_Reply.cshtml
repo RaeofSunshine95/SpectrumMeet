@@ -1,0 +1,26 @@
+﻿@model SpectrumMeetEF.Message
+
+<div class="container border-black" style="margin-left:5%;">
+    <p><b>@Model.User.FirstName @Model.User.LastName</b> on @Model.PostedDate.ToShortDateString() at @Model.PostedDate.ToShortTimeString()</p>
+    <hr class="w-25" />
+    <p> @Model.Content</p>
+    <p>MY ID IS @Model.MessageID</p>
+    <p>MY PARENT MESSAGE IS @Model.ParentMessageID</p>
+    @Html.ActionLink("Reply", "Details", new { id = Model.MessageID, area = "MessageBoard", controller = "Messages" })
+</div>
+@{ 
+    //Hi, me again. This code is awful. This is a terrible way to do this. It shouldn't be done this way.
+    //This is also the only way to get this to work in any reasonable way with the way my database query and business layer is set up
+    //Considering I have less than two weeks to finish this monstrosity I'll content myself with knowing that this functions.
+    //It also makes a database query for every single message it renders, which was the initial thing I was avoiding doing with the stored
+    //procedure. Too bad! - Rachel
+    var replylist = Model.GetAllChildren();
+    {
+        foreach (var reply in replylist)
+        {
+            <div style="margin-left:5%">
+                @Html.Partial("_Reply", reply)
+            </div>
+        }
+    }
+}

@@ -1,70 +1,35 @@
 ﻿@model SpectrumMeetEF.Message
-
+@Scripts.Render("~/bundles/jquery")
 @{
     ViewBag.Title = "Details";
 }
-
 <h2>
-    @Html.DisplayFor(model => model.Title)
+    <b>@Html.DisplayFor(model => model.Title)</b>
 </h2>
 
 <div>
     <h4>Posted In: @Html.DisplayFor(model => model.Group.Name)</h4>
+    <div class="container">
+        <h4><b>@Model.User.FirstName @Model.User.LastName</b> on @Model.PostedDate.ToString()</h4>
+        <p>@Model.Content</p>
+    </div>
     @{
 
-        var children = Model.GetAllChildren().OrderBy(m => m.PostedDate);
+        var children = Model.GetAllChildren();
         foreach (var message in children)
         {
-            if (message.ParentMessageID == Model.MessageID || message.MessageID == Model.MessageID)
+            if (message.ParentMessageID == Model.MessageID)
             {
-                <div class="basemessage" id="@message.MessageID">
-                    <p><b>@message.User.FirstName @message.User.LastName</b> on @message.PostedDate.ToShortDateString() at @message.PostedDate.ToShortTimeString()</p>
-                    <hr />
-                    <p> @message.Content</p>
+                <div>
+                    @Html.Partial("_Reply", message)
                 </div>
-            }
-            else
-            {
-                <div class="reply" style="margin-left:30px;">
-                    <p><b>@message.User.FirstName @message.User.LastName</b> on @message.PostedDate.ToShortDateString() at @message.PostedDate.ToShortTimeString()</p>
-                    <hr />
-                    <p> @message.Content</p>
-                </div>
-                <script>
-                $(document).ready(function () {
-                function appendReply(id) {
-                    var $base = document.getElementById(id)
-                    $base.appendChild($('.reply'))
-                    }
-                appendReply("@message.ParentMessageID");
-                });
-                </script>
             }
         }
     }
-
-    @using (Html.BeginForm("PostReply", "Messages", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
-
-        if (TempData["ErrorMessage"] != null)
-        {
-            <div class="alert alert-info" style="width:35%">
-                <alert class="text-bg-info">
-                    @TempData["ErrorMessage"]
-                </alert>
-            </div>
-        }
-        @Html.HiddenFor(model => model.MessageID)
-        <div class="form-group">
-            @Html.Label("Reply")
-            @Html.TextArea("messageContent", new { placeholder = "Enter Reply", @class = "form-control form-control-lg", rows = 3 })
-        </div>
-        <input type="submit" value="New Reply" class="btn btn-primary">
-    }
+    @Html.Partial("_ReplyBox", Model)
 </div>
+<br />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MessageID }) |
-    @Html.ActionLink("Back to List", "Details", new { area = "GroupPage", controller = "Groups", id = Model.GroupID })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MessageID}) |
+    <button class="btn btn-primary" onclick="history.back()">Go back</button>
 </p>
