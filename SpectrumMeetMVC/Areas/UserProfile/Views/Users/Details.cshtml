@@ -15,15 +15,21 @@
             <strong>Name:</strong> @child.Child.Name<br />
             <strong>Description:</strong> @child.Child.Description<br />
             <strong>Support Level:</strong> @child.Child.SupportLevel.Name<br />
-            <strong>Condition:</strong> @child.Child.ChildConditions<br />
-            @* TOFIX idk why conditions isnt popping up maybe bc there isnt data in it but idk
-            shouldnt it be linked to just conditions?? *@
+            <strong>Conditions:</strong> 
+            <ul>
+                @foreach (var condition in child.Child.ChildConditions)
+                {
+                    <li>
+                        @condition.Condition.Name
+                    </li>
+
+                }
+            </ul>  
             <strong>Verbal:</strong> @child.Child.Verbal
-            @*if (!@child.Child.Verbal)
-            {
-                <p><b>Nonverbal</b></p>
-            };*@
-            <br />
+            
+            <hr />
+
+           
 
         }
 
