@@ -13,8 +13,8 @@
         <h4><b>@Model.User.FirstName @Model.User.LastName</b> on @Model.PostedDate.ToString()</h4>
         <p>@Model.Content</p>
     </div>
+    @Html.Partial("_ReplyBox", Model)
     @{
-
         var children = Model.GetAllChildren();
         foreach (var message in children)
         {
@@ -26,7 +26,6 @@
             }
         }
     }
-    @Html.Partial("_ReplyBox", Model)
 </div>
 <br />
 <p>
