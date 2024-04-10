@@ -15,7 +15,6 @@
     </div>
     @Html.Partial("_ReplyBox", Model)
     @{
-
         var children = Model.GetAllChildren();
         foreach (var message in children)
         {
