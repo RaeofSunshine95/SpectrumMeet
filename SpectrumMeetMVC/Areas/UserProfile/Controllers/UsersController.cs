@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SpectrumMeetEF;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using SpectrumMeetEF;
 
 namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
 {
@@ -110,23 +107,31 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
         //Account to go to instead of the usual integer id parameter
         //Kinda messy but it means a null session doesn't throw a bad request error and redirects
         //to login which makes more sense
-        public ActionResult Details()
+        public ActionResult Details(int? id)
         {
-            if (Session["AccountID"] != null)
+            if (id != null || Session["AccountID"] != null)
             {
-                var accountId = (int)Session["AccountID"];
+                var accountId = 0;
+                if (id == null)
+                {
+                    accountId = (int)Session["AccountID"];
+                }
+                else
+                {
+                    accountId = (int)id;
+                }
                 var userProfile = db.Users
-                    .Include(u => u.Account.ParentChilds.Select(pc=>pc.Child))
-                    .Include(u => u.Account.ParentChilds.Select(pc => pc.Child.ChildConditions.Select(cc=>cc.Condition)))
-              
+                    .Include(u => u.Account.ParentChilds.Select(pc => pc.Child))
+                    .Include(u => u.Account.ParentChilds.Select(pc => pc.Child.ChildConditions.Select(cc => cc.Condition)))
+
                     //add another include to have the descrptions and conditions and stuff for the child TODO
                     .FirstOrDefault(u => u.AccountID == accountId);
-                    
+
                 return View(userProfile);
             }
             else
             {
-                return RedirectToAction("Login", null, new {area="Administration", controller="Accounts"});
+                return RedirectToAction("Login", null, new { area = "Administration", controller = "Accounts" });
             }
         }
         protected override void Dispose(bool disposing)

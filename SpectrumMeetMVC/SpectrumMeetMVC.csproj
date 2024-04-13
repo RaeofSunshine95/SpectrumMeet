@@ -160,12 +160,15 @@
     <Compile Include="Areas\Administration\Controllers\AccountsController.cs" />
     <Compile Include="Areas\ChildProfile\ChildProfileAreaRegistration.cs" />
     <Compile Include="Areas\ChildProfile\Controllers\ChildrenController.cs" />
+    <Compile Include="Areas\Condition\ConditionAreaRegistration.cs" />
+    <Compile Include="Areas\Condition\Controllers\ConditionsController.cs" />
     <Compile Include="Areas\GroupPage\Controllers\GroupsController.cs" />
     <Compile Include="Areas\GroupPage\GroupPageAreaRegistration.cs" />
     <Compile Include="Areas\MessageBoard\Controllers\MessagesController.cs" />
     <Compile Include="Areas\MessageBoard\MessageBoardAreaRegistration.cs" />
     <Compile Include="Areas\PrivateMessage\Controllers\PrivateMessagesController.cs" />
     <Compile Include="Areas\PrivateMessage\PrivateMessageAreaRegistration.cs" />
+    <Compile Include="Areas\UserProfile\Controllers\SearchController.cs" />
     <Compile Include="Areas\UserProfile\Controllers\UsersController.cs" />
     <Compile Include="Areas\UserProfile\UserProfileAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -221,6 +224,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administration\Data\" />
     <Folder Include="Areas\ChildProfile\Data\" />
+    <Folder Include="Areas\Condition\Data\" />
+    <Folder Include="Areas\Condition\Views\Shared\" />
     <Folder Include="Areas\GroupPage\Data\" />
     <Folder Include="Areas\GroupPage\Views\Shared\" />
     <Folder Include="Areas\MessageBoard\Data\" />
@@ -284,6 +289,15 @@
     <Content Include="Areas\UserProfile\Views\Shared\_ParentChildView.cshtml" />
     <Content Include="Areas\MessageBoard\Views\Messages\_Reply.cshtml" />
     <Content Include="Areas\MessageBoard\Views\Messages\_ReplyBox.cshtml" />
+    <Content Include="Areas\UserProfile\Views\Search\UserSearch.cshtml" />
+    <Content Include="Areas\UserProfile\Views\Search\_UserSearch.cshtml" />
+    <Content Include="Areas\Condition\Views\Conditions\Create.cshtml" />
+    <Content Include="Areas\Condition\Views\Conditions\Delete.cshtml" />
+    <Content Include="Areas\Condition\Views\Conditions\Details.cshtml" />
+    <Content Include="Areas\Condition\Views\Conditions\Edit.cshtml" />
+    <Content Include="Areas\Condition\Views\Conditions\Index.cshtml" />
+    <Content Include="Areas\Condition\Views\Conditions\_ConditionList.cshtml" />
+    <Content Include="Areas\Condition\Views\web.config" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
