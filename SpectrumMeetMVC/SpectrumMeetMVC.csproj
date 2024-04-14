@@ -208,8 +208,6 @@
     <Content Include="Content\_bootswatch.min.css">
       <DependentUpon>_bootswatch.css</DependentUpon>
     </Content>
-    <Content Include="Content\_variables.css" />
-    <Content Include="Content\_variables.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
