@@ -3,7 +3,9 @@
 
 
 // Variables
-@import"_variables.scss";
+@import "scss/_mixins.scss";
+@import "scss/_variables.scss";
+@import "_variables.scss";
 
 $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" !default;
 
