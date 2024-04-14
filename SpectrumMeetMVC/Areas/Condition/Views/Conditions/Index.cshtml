@@ -1,0 +1,10 @@
+﻿@model IEnumerable<SpectrumMeetEF.Condition>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Condition List</h2>
+<p>All definitions obtained from publicly available DSM-V documentation.</p>
+@Html.Partial("_ConditionList", Model)

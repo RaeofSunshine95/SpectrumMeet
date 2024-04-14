@@ -97,5 +97,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.AccountID }) |
-    @Html.ActionLink("Back to List", "Index")
+    <button class="btn btn-primary" onclick="history.back()">Go back</button>
 </p>
