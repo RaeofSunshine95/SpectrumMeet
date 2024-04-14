@@ -160,12 +160,15 @@
     <Compile Include="Areas\Administration\Controllers\AccountsController.cs" />
     <Compile Include="Areas\ChildProfile\ChildProfileAreaRegistration.cs" />
     <Compile Include="Areas\ChildProfile\Controllers\ChildrenController.cs" />
+    <Compile Include="Areas\Condition\ConditionAreaRegistration.cs" />
+    <Compile Include="Areas\Condition\Controllers\ConditionsController.cs" />
     <Compile Include="Areas\GroupPage\Controllers\GroupsController.cs" />
     <Compile Include="Areas\GroupPage\GroupPageAreaRegistration.cs" />
     <Compile Include="Areas\MessageBoard\Controllers\MessagesController.cs" />
     <Compile Include="Areas\MessageBoard\MessageBoardAreaRegistration.cs" />
     <Compile Include="Areas\PrivateMessage\Controllers\PrivateMessagesController.cs" />
     <Compile Include="Areas\PrivateMessage\PrivateMessageAreaRegistration.cs" />
+    <Compile Include="Areas\UserProfile\Controllers\SearchController.cs" />
     <Compile Include="Areas\UserProfile\Controllers\UsersController.cs" />
     <Compile Include="Areas\UserProfile\UserProfileAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -185,6 +188,7 @@
     <Content Include="Content\img\why-us-bg2.png" />
     <Content Include="Content\img\why-us-bg3.png" />
     <Content Include="Content\Lumen.css" />
+<<<<<<< HEAD
     <Content Include="Content\Style.css">
       <DependentUpon>Style.scss</DependentUpon>
     </Content>
@@ -240,6 +244,16 @@
       <DependentUpon>_bootswatch.css</DependentUpon>
     </Content>
     <Content Include="Content\daliakat.css" />
+=======
+    <Content Include="Content\scss\_accordion.css" />
+    <Content Include="Content\scss\_accordion.min.css" />
+    <Content Include="Content\Style.css" />
+    <Content Include="Content\Style.min.css" />
+    <Content Include="Content\_bootswatch.css" />
+    <Content Include="Content\_bootswatch.min.css" />
+    <Content Include="Content\_variables.css" />
+    <Content Include="Content\_variables.min.css" />
+>>>>>>> 026cd1b499982b9d8f2bd7575c1c0ec06ada1700
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -249,6 +263,14 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-3.7.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.7.1.js" />
+    <Content Include="Scripts\jquery-3.7.1.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -268,6 +290,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administration\Data\" />
     <Folder Include="Areas\ChildProfile\Data\" />
+    <Folder Include="Areas\Condition\Data\" />
+    <Folder Include="Areas\Condition\Views\Shared\" />
     <Folder Include="Areas\GroupPage\Data\" />
     <Folder Include="Areas\GroupPage\Views\Shared\" />
     <Folder Include="Areas\MessageBoard\Data\" />
@@ -318,10 +342,6 @@
     <Content Include="Areas\Administration\Views\Accounts\Details.cshtml" />
     <Content Include="Areas\Administration\Views\Accounts\Edit.cshtml" />
     <Content Include="Areas\Administration\Views\Accounts\Index.cshtml" />
-    <Content Include="Content\bootstrap.rtl.min.css.map" />
-    <Content Include="Content\bootstrap.rtl.css.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <Content Include="Areas\UserProfile\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\PrivateMessage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\MessageBoard\Views\Shared\_Layout.cshtml" />
@@ -331,12 +351,24 @@
     <Content Include="Areas\UserProfile\Views\Shared\_ParentChildView.cshtml" />
     <Content Include="Areas\MessageBoard\Views\Messages\_Reply.cshtml" />
     <Content Include="Areas\MessageBoard\Views\Messages\_ReplyBox.cshtml" />
+    <Content Include="Areas\UserProfile\Views\Search\UserSearch.cshtml" />
+    <Content Include="Areas\UserProfile\Views\Search\_UserSearch.cshtml" />
+    <Content Include="Areas\Condition\Views\Conditions\Create.cshtml" />
+    <Content Include="Areas\Condition\Views\Conditions\Delete.cshtml" />
+    <Content Include="Areas\Condition\Views\Conditions\Details.cshtml" />
+    <Content Include="Areas\Condition\Views\Conditions\Edit.cshtml" />
+    <Content Include="Areas\Condition\Views\Conditions\Index.cshtml" />
+    <Content Include="Areas\Condition\Views\Conditions\_ConditionList.cshtml" />
+    <Content Include="Areas\Condition\Views\web.config" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <Content Include="Content\Style.scss" />
     <Content Include="Content\_variables.scss" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.rtl.css.map" />
+    <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="Content\scss\bootstrap-grid.scss" />
     <Content Include="Content\scss\bootstrap-reboot.scss" />
     <Content Include="Content\scss\bootstrap-utilities.scss" />
@@ -425,6 +457,7 @@
     <Content Include="Content\scss\_type.scss" />
     <Content Include="Content\scss\_utilities.scss" />
     <Content Include="Content\scss\_variables.scss" />
+<<<<<<< HEAD
     <Content Include="Content\_bootswatch.scss" />
     <Content Include="Content\vendor\aos\aos.js.map" />
     <Content Include="Content\vendor\bootstrap-icons\bootstrap-icons.json" />
@@ -460,6 +493,8 @@
     <Content Include="Content\vendor\remixicon\remixicon.woff" />
     <Content Include="Content\vendor\remixicon\remixicon.woff2" />
     <Content Include="Content\vendor\swiper\swiper-bundle.min.js.map" />
+=======
+>>>>>>> 026cd1b499982b9d8f2bd7575c1c0ec06ada1700
     <None Include="packages.config" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
@@ -467,6 +502,8 @@
     <Content Include="Scripts\bootstrap.esm.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\jquery-3.7.1.min.map" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

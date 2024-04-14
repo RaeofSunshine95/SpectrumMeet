@@ -19,9 +19,8 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="@Url.Action("Index", null, new {area=String.Empty, controller="Home"})">
+                        <a class="nav-link" href="@Url.Action("Index", null, new {area=String.Empty, controller="Home"})">
                             Home
-                            <span class="visually-hidden">(current)</span>
                         </a>
                     </li>
                     <li>
@@ -37,6 +36,12 @@
                         <!--I'm so glad that this nav-link is so much simpler now and just works properly!
                     The user controller handles all the session variable work so I don't need to put it here.'-->
                         <a class="nav-link" href="@Url.Action("Details",null, new {area="UserProfile", controller="Users"})">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index",null,new {area="Condition", controller="Conditions"})">Condition List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("UserSearch",null,new {area="UserProfile", controller="Search"})">User Search</a>
                     </li>
                 </ul>
 
@@ -55,6 +60,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
