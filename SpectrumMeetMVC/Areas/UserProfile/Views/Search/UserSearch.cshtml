@@ -1,0 +1,28 @@
+﻿@model IEnumerable<SpectrumMeetEF.User>
+    @{
+        ViewBag.Title = "UserSearch";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <h2>Find Parents In Your Area</h2>
+    <input id="txtSearch" class="form-control-lg" placeholder="Search by Location" oninput="SearchByLocation()" />
+    
+    @* TODO: Implement search by condition as its own separate method, if you have time try to composite them together but
+        dont hurt yourself.
+
+        Html.DropDownList("Condition", null, htmlAttributes: new { @class = "filter", @onchange = "SearchByLocation()" })*@
+    <div id="itemContainer">
+    </div>
+
+    @section Scripts{
+        <script type="text/javascript">
+        /*$(document).on('change', "#SearchBar", function () {
+            SearchByLocation();
+        })*/
+        function SearchByLocation() {
+            var condition = $('#Condition').val();
+            var param = $('#txtSearch').val();
+            var container = $('#itemContainer');
+            container.load('@Url.Action("_SearchByLocation")?loc=' + param);
+        }
+        </script>
+    }

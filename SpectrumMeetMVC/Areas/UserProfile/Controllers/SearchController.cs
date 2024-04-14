@@ -1,33 +1,49 @@
-﻿using SpectrumMeetEF;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using SpectrumMeetEF;
 
 namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
 {
-    public class UsersController : Controller
+    public class SearchController : Controller
     {
         private SpectrumMeetEntities db = new SpectrumMeetEntities();
 
-        // GET: UserProfile/Users
+        // GET: UserProfile/Search
         public ActionResult Index()
         {
             var users = db.Users.Include(u => u.Account);
             return View(users.ToList());
         }
 
-        // GET: UserProfile/Users/Details/5
+        // GET: UserProfile/Search/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
 
-        // GET: UserProfile/Users/Create
+        // GET: UserProfile/Search/Create
         public ActionResult Create()
         {
             ViewBag.AccountID = new SelectList(db.Accounts, "AccountID", "Username");
             return View();
         }
 
-        // POST: UserProfile/Users/Create
+        // POST: UserProfile/Search/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -45,7 +61,7 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
             return View(user);
         }
 
-        // GET: UserProfile/Users/Edit/5
+        // GET: UserProfile/Search/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -61,7 +77,7 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
             return View(user);
         }
 
-        // POST: UserProfile/Users/Edit/5
+        // POST: UserProfile/Search/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -78,7 +94,7 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
             return View(user);
         }
 
-        // GET: UserProfile/Users/Delete/5
+        // GET: UserProfile/Search/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -93,7 +109,7 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
             return View(user);
         }
 
-        // POST: UserProfile/Users/Delete/5
+        // POST: UserProfile/Search/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -103,36 +119,21 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        //Bespoke details action that uses the session variable to determine the correct
-        //Account to go to instead of the usual integer id parameter
-        //Kinda messy but it means a null session doesn't throw a bad request error and redirects
-        //to login which makes more sense
-        public ActionResult Details(int? id)
+        public ActionResult UserSearch()
         {
-            if (id != null || Session["AccountID"] != null)
-            {
-                var accountId = 0;
-                if (id == null)
-                {
-                    accountId = (int)Session["AccountID"];
-                }
-                else
-                {
-                    accountId = (int)id;
-                }
-                var userProfile = db.Users
-                    .Include(u => u.Account.ParentChilds.Select(pc => pc.Child))
-                    .Include(u => u.Account.ParentChilds.Select(pc => pc.Child.ChildConditions.Select(cc => cc.Condition)))
+            ViewBag.Condition = new SelectList(db.Conditions.OrderBy(c => c.ConditionID), "ConditionID", "Name");
+            var users = db.Users
+                .Include(u => u.Account)
+                .Include(u => u.Account.ParentChilds.Select(pc => pc.Child))
+                .Include(u => u.Account.ParentChilds.Select(pc => pc.Child.ChildConditions.Select(cc => cc.Condition)));
+            return View(users.ToList());
+        }
 
-                    //add another include to have the descrptions and conditions and stuff for the child TODO
-                    .FirstOrDefault(u => u.AccountID == accountId);
-
-                return View(userProfile);
-            }
-            else
-            {
-                return RedirectToAction("Login", null, new { area = "Administration", controller = "Accounts" });
-            }
+        public ActionResult _SearchByLocation(string loc)
+        {
+            var user_Location = db.Users
+                .Where(us => us.City.Contains(loc) || us.State.Contains(loc));
+            return PartialView("_UserSearch", user_Location.ToList());
         }
         protected override void Dispose(bool disposing)
         {
