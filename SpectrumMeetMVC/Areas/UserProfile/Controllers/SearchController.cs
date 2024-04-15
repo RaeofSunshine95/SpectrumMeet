@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using SpectrumMeetEF;
 
 namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
@@ -134,6 +135,19 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
             var user_Location = db.Users
                 .Where(us => us.City.Contains(loc) || us.State.Contains(loc));
             return PartialView("_UserSearch", user_Location.ToList());
+        }
+
+        public ActionResult _SearchByCondition(int id)
+        {
+            List<User> user_Condition = new List<User>();
+            foreach ( var user in db.Users )
+            {
+                if(user.ChildrenHaveCondition(id))
+                {
+                    user_Condition.Add(user);
+                }
+            }
+            return PartialView("_UserSearch", user_Condition);
         }
         protected override void Dispose(bool disposing)
         {

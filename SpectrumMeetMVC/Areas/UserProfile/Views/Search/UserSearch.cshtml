@@ -4,25 +4,30 @@
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
     <h2>Find Parents In Your Area</h2>
-    <input id="txtSearch" class="form-control-lg" placeholder="Search by Location" oninput="SearchByLocation()" />
+    <div class="container">
+        <p>
+            <input id="txtSearch" class="form-control-lg" placeholder="Search by Location" oninput="SearchByLocation()" />
+            <label class="filter form-label">Filter By Condition:</label>@Html.DropDownList("Condition", null, htmlAttributes: new { @class = "filter form-control select-add-placeholder", @style="display:inline-block;", @onchange = "SearchByCondition()"})
+        </p>
+    </div>
     
-    @* TODO: Implement search by condition as its own separate method, if you have time try to composite them together but
-        dont hurt yourself.
-
-        Html.DropDownList("Condition", null, htmlAttributes: new { @class = "filter", @onchange = "SearchByLocation()" })*@
     <div id="itemContainer">
     </div>
 
     @section Scripts{
         <script type="text/javascript">
-        /*$(document).on('change', "#SearchBar", function () {
-            SearchByLocation();
-        })*/
+        $(document).ready(function() {
+            $(".select-add-placeholder").prepend("<option value='' disabled selected>Select Condition...</option>");
+        });
         function SearchByLocation() {
-            var condition = $('#Condition').val();
             var param = $('#txtSearch').val();
             var container = $('#itemContainer');
             container.load('@Url.Action("_SearchByLocation")?loc=' + param);
-        }
+            }
+        function SearchByCondition() {
+            var condition = $('#Condition').val();
+            var container = $('#itemContainer');
+            container.load('@Url.Action("_SearchByCondition")?id=' + condition);
+            }
         </script>
     }

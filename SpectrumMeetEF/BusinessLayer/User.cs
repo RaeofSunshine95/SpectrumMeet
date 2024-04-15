@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,6 +71,22 @@ namespace SpectrumMeetEF
             }
             messages.OrderByDescending(m => m.PostedDate);
             return messages;
+        }
+
+        public bool ChildrenHaveCondition(int id)
+        {
+            List<ParentChild> parentchilds = db.ParentChilds.Where(p=>p.AccountID == AccountID).ToList();
+            foreach (var pc in parentchilds)
+            {
+                foreach (var condition in pc.Child.ChildConditions)
+                {
+                    if (condition.ConditionID == id)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }
