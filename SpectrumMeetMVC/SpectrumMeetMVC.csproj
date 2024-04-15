@@ -188,7 +188,6 @@
     <Content Include="Content\img\why-us-bg2.png" />
     <Content Include="Content\img\why-us-bg3.png" />
     <Content Include="Content\Lumen.css" />
-<<<<<<< HEAD
     <Content Include="Content\Style.css">
       <DependentUpon>Style.scss</DependentUpon>
     </Content>
@@ -244,7 +243,6 @@
       <DependentUpon>_bootswatch.css</DependentUpon>
     </Content>
     <Content Include="Content\daliakat.css" />
-=======
     <Content Include="Content\scss\_accordion.css" />
     <Content Include="Content\scss\_accordion.min.css" />
     <Content Include="Content\Style.css" />
@@ -253,7 +251,6 @@
     <Content Include="Content\_bootswatch.min.css" />
     <Content Include="Content\_variables.css" />
     <Content Include="Content\_variables.min.css" />
->>>>>>> 026cd1b499982b9d8f2bd7575c1c0ec06ada1700
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -457,7 +454,6 @@
     <Content Include="Content\scss\_type.scss" />
     <Content Include="Content\scss\_utilities.scss" />
     <Content Include="Content\scss\_variables.scss" />
-<<<<<<< HEAD
     <Content Include="Content\_bootswatch.scss" />
     <Content Include="Content\vendor\aos\aos.js.map" />
     <Content Include="Content\vendor\bootstrap-icons\bootstrap-icons.json" />
@@ -493,8 +489,6 @@
     <Content Include="Content\vendor\remixicon\remixicon.woff" />
     <Content Include="Content\vendor\remixicon\remixicon.woff2" />
     <Content Include="Content\vendor\swiper\swiper-bundle.min.js.map" />
-=======
->>>>>>> 026cd1b499982b9d8f2bd7575c1c0ec06ada1700
     <None Include="packages.config" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
