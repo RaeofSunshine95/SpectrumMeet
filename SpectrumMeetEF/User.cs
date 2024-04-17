@@ -29,8 +29,7 @@ namespace SpectrumMeetEF
         public string State { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
 
-        //dalia added this 
-        public string ProfilePicturePath { get; set; }
+        
 
 
         public virtual Account Account { get; set; }

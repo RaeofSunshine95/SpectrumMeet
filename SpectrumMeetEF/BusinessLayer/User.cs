@@ -27,6 +27,9 @@ namespace SpectrumMeetEF
                 } 
             } 
         }
+        //dalia added this 
+
+        public string ProfilePicturePath { get; set; }
         //Gets every message a user has posted and returns them in a list
         //format
         public List<Message> PostedMessages()
@@ -89,5 +92,6 @@ namespace SpectrumMeetEF
             }
             return false;
         }
+
     }
 }
