@@ -57,7 +57,25 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.SupportLevels = new SelectList(db.SupportLevels, "LevelID", "Name");
+
             ViewBag.AccountID = new SelectList(db.Accounts, "AccountID", "Username", user.AccountID);
+
+
+            var conditions = db.Conditions.ToList();
+
+            // Create a list of SelectListItem objects
+            var conditionOptions = conditions.Select(c => new SelectListItem
+            {
+                Value = c.ConditionID.ToString(),
+                Text = c.Name
+            }).ToList();
+
+            // Pass the condition options to the view
+            ViewBag.ConditionOptions = conditionOptions;
+
+
             return View(user);
         }
 
@@ -70,12 +88,50 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (user != null && user.Account != null && user.Account.ParentChilds != null)
+                {
+                    // Update the user entity
+                    db.Entry(user).State = EntityState.Modified;
+
+                    // Loop through each parent-child relationship
+                    foreach (var parentChild in user.Account.ParentChilds)
+                    {
+                        // Update the child entity
+                        db.Entry(parentChild.Child).State = EntityState.Modified;
+
+                        // Update the child conditions
+                        if (parentChild.Child.ChildConditions != null)
+                        {
+                            parentChild.Child.ChildConditions.Clear(); // Clear existing conditions
+                            foreach (var conditionId in parentChild.Child.ChildConditions)
+                            {
+                                var condition = db.Conditions.Find(conditionId);
+                                if (condition != null)
+                                {
+                                    parentChild.Child.ChildConditions.Add(conditionId);
+                                }
+                            }
+                        }
+                    }
+
+                    // Save changes to the database
+                    db.SaveChanges();
+                }
+                else
+                {
+                    // Handle null objects gracefully
+                    // You can add logging or other error handling here if needed
+                }
+
+                // Redirect to the details page with the updated user's ID
+                return RedirectToAction("Details", new { id = user.AccountID });
             }
-            ViewBag.AccountID = new SelectList(db.Accounts, "AccountID", "Username", user.AccountID);
-            return View(user);
+            else
+            {
+                // If the ModelState is not valid, return to the edit view with the current user object
+                ViewBag.AccountID = new SelectList(db.Accounts, "AccountID", "Username", user.AccountID);
+                return View(user);
+            }
         }
 
         // GET: UserProfile/Users/Delete/5

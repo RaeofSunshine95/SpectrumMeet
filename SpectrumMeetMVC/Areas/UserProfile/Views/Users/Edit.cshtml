@@ -96,9 +96,18 @@
                     <div class="form-group">
                         @Html.Label("Support Level", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.Account.ParentChilds.ElementAt(i).Child.SupportLevel, new { htmlAttributes = new { @class = "form-control", rows = 4 } })
+                            <select class="form-control" id="SupportLevel" name="SupportLevel">
+                                <option value="">Select Support Level</option>
+                                @foreach (var supportLevel in ViewBag.SupportLevels)
+                                {
+                                    <option value="@supportLevel.Value">@supportLevel.Text</option>
+                                }
+                            </select>
                         </div>
                     </div>
+
+
+
                     <div class="form-group">
                         @Html.Label("Verbal", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
@@ -108,7 +117,9 @@
                     <div class="form-group">
                         @Html.Label("Child Conditions", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.Account.ParentChilds.ElementAt(i).Child.ChildConditions, new { htmlAttributes = new { @class = "form-control", rows = 4 } })
+                            @Html.ListBoxFor(model => model.Account.ParentChilds.ElementAt(i).Child.ChildConditions,
+                                             new MultiSelectList(ViewBag.ConditionOptions, "Value", "Text"),
+                                             new { @class = "form-control", multiple = "multiple" })
                         </div>
                     </div>
                 </div>
@@ -162,5 +173,15 @@
                 childIndex++;
             });
         });
+    $(document).ready(function () {
+
+        $('select[multiple="multiple"] option').mousedown(function (e) {
+            e.preventDefault();
+
+            $(this).prop('selected', !$(this).prop('selected'));
+
+            $(this).parent().focus();
+        });
+    });
 </script>
 }
