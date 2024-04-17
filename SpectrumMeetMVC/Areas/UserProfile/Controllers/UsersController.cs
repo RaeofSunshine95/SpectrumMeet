@@ -1,6 +1,7 @@
 ﻿using SpectrumMeetEF;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -90,14 +91,23 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
             {
                 if (user != null && user.Account != null && user.Account.ParentChilds != null)
                 {
-                    // Update the user entity
+                   
                     db.Entry(user).State = EntityState.Modified;
 
-                    // Loop through each parent-child relationship
+
                     foreach (var parentChild in user.Account.ParentChilds)
                     {
                         // Update the child entity
                         db.Entry(parentChild.Child).State = EntityState.Modified;
+
+                        //if (profilePicture != null && profilePicture.ContentLength > 0)
+                        //{
+                        //    var fileName = Path.GetFileName(profilePicture.FileName);
+                        //    var path = Path.Combine(Server.MapPath("~/ProfilePictures"), fileName);
+                        //    profilePicture.SaveAs(path);
+                        //    user.ProfilePicturePath = "~/ProfilePictures/" + fileName;
+                        //} TODO make pics upload 
+
 
                         // Update the child conditions
                         if (parentChild.Child.ChildConditions != null)

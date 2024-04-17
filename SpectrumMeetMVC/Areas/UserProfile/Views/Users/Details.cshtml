@@ -6,34 +6,9 @@
 
 <h2>@Model.FirstName @Model.LastName</h2>
 
-
 <div class="row">
     <div class="col-md-6">
-        @foreach (var child in Model.Account.ParentChilds)
-        {
-
-            <strong>Name:</strong> @child.Child.Name<br />
-            <strong>Description:</strong> @child.Child.Description<br />
-            <strong>Support Level:</strong> @child.Child.SupportLevel.Name<br />
-            <strong>Conditions:</strong> 
-            <ul>
-                @foreach (var condition in child.Child.ChildConditions)
-                {
-                    <li>
-                        @condition.Condition.Name
-                    </li>
-
-                }
-            </ul>  
-            <strong>Verbal:</strong> @child.Child.Verbal
-            
-            <hr />
-
-           
-
-        }
-
-        @*<h4>User</h4>
+        <h4>User</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -76,13 +51,13 @@
                 @Html.DisplayFor(model => model.State)
             </dd>
 
-            <dt>
+            @*<dt>
                 @Html.DisplayNameFor(model => model.Birthday)
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.Birthday)
-            </dd>
+            </dd>*@
 
             <dt>
                 @Html.DisplayNameFor(model => model.Account.Username)
@@ -92,9 +67,40 @@
                 @Html.DisplayFor(model => model.Account.Username)
             </dd>
 
-        </dl>*@
+        </dl>
+
+
+    </div>
+
+
+    <div class="col-md-6">
+        <h4>Children</h4>
+        @foreach (var child in Model.Account.ParentChilds)
+        {
+
+            <strong>Name:</strong> @child.Child.Name<br />
+            <strong>Description:</strong> @child.Child.Description<br />
+            <strong>Support Level:</strong> @child.Child.SupportLevel.Name<br />
+            <strong>Conditions:</strong>
+            <ul>
+                @foreach (var condition in child.Child.ChildConditions)
+                {
+                    <li>
+                        @condition.Condition.Name
+                    </li>
+
+                }
+            </ul>
+            <strong>Verbal:</strong> @child.Child.Verbal
+
+            <hr />
+
+
+
+        }
     </div>
 </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.AccountID }) |
     <button class="btn btn-primary" onclick="history.back()">Go back</button>

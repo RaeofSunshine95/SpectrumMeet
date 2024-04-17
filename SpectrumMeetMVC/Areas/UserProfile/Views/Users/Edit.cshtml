@@ -7,144 +7,146 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>User</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.AccountID)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>User</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.AccountID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <h4>Children</h4>
-    <hr />
-    <div class="children-container">
-        @for (int i = 0; i < Model.Account.ParentChilds.Count(); i++)
-        {
-            var child = Model.Account.ParentChilds.ElementAt(i).Child;
-            if (child != null)
+        <h4>Children</h4>
+        <hr />
+        <div class="children-container">
+            @for (int i = 0; i < Model.Account.ParentChilds.Count(); i++)
             {
-                <div class="child">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Account.ParentChilds.ElementAt(i).Child.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Account.ParentChilds.ElementAt(i).Child.Name, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Account.ParentChilds.ElementAt(i).Child.Name, "", new { @class = "text-danger" })
+                var child = Model.Account.ParentChilds.ElementAt(i).Child;
+                if (child != null)
+                {
+                    <div class="child">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Account.ParentChilds.ElementAt(i).Child.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Account.ParentChilds.ElementAt(i).Child.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Account.ParentChilds.ElementAt(i).Child.Name, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.Label("Child Name", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.Account.ParentChilds.ElementAt(i).Child.Name, new { htmlAttributes = new { @class = "form-control", rows = 4 } })
+                        <div class="form-group">
+                            @Html.Label("Child Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.Account.ParentChilds.ElementAt(i).Child.Name, new { htmlAttributes = new { @class = "form-control", rows = 4 } })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.Label("Child Description", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.Account.ParentChilds.ElementAt(i).Child.Description, new { htmlAttributes = new { @class = "form-control", rows = 4 } })
+                        <div class="form-group">
+                            @Html.Label("Child Description", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.Account.ParentChilds.ElementAt(i).Child.Description, new { htmlAttributes = new { @class = "form-control", rows = 4 } })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.Label("Support Level", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            <select class="form-control" id="SupportLevel" name="SupportLevel">
-                                <option value="">Select Support Level</option>
-                                @foreach (var supportLevel in ViewBag.SupportLevels)
-                                {
-                                    <option value="@supportLevel.Value">@supportLevel.Text</option>
-                                }
-                            </select>
+                        <div class="form-group">
+                            @Html.Label("Support Level", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <select class="form-control" id="SupportLevel" name="SupportLevel">
+                                    <option value="">Select Support Level</option>
+                                    @foreach (var supportLevel in ViewBag.SupportLevels)
+                                    {
+                                        <option value="@supportLevel.Value">@supportLevel.Text</option>
+                                    }
+                                </select>
+                            </div>
                         </div>
-                    </div>
 
 
 
-                    <div class="form-group">
-                        @Html.Label("Verbal", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.CheckBoxFor(model => model.Account.ParentChilds.ElementAt(i).Child.Verbal, new { htmlAttributes = new { @class = "form-control" } })
+                        <div class="form-group">
+                            @Html.Label("Verbal", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.CheckBoxFor(model => model.Account.ParentChilds.ElementAt(i).Child.Verbal, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Child Conditions", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.ListBoxFor(model => model.Account.ParentChilds.ElementAt(i).Child.ChildConditions,
+                                                 new MultiSelectList(ViewBag.ConditionOptions, "Value", "Text"),
+                                                 new { @class = "form-control", multiple = "multiple" })
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        @Html.Label("Child Conditions", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.ListBoxFor(model => model.Account.ParentChilds.ElementAt(i).Child.ChildConditions,
-                                             new MultiSelectList(ViewBag.ConditionOptions, "Value", "Text"),
-                                             new { @class = "form-control", multiple = "multiple" })
-                        </div>
-                    </div>
-                </div>
+                }
             }
+        </div>
+
+        <button type="button" id="add-child-btn" class="btn btn-primary">Add Child</button>
+
+        @*for the children profile pic*@
+        <div class="form-group">
+            <label class="control-label col-md-2" for="profilePicture">Profile Picture:</label>
+            <div class="col-md-10">
+                <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
+
+            </div>
+        </div>
         }
-    </div>
 
-    <button type="button" id="add-child-btn" class="btn btn-primary">Add Child</button>
 
-    @*for the children profile pic*@
-    <div class="form-group">
-        <label class="control-label col-md-2" for="profilePicture">Profile Picture:</label>
-        <div class="col-md-10">
-            <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
         </div>
     </div>
-    }
-
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
@@ -153,7 +155,7 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-<script>
+    <script>
         $(document).ready(function () {
             var childIndex = @Model.Account.ParentChilds.Count;
 
@@ -183,5 +185,5 @@
             $(this).parent().focus();
         });
     });
-</script>
+    </script>
 }
