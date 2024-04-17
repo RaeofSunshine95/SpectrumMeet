@@ -30,7 +30,8 @@ namespace SpectrumMeetEF
         public Nullable<System.DateTime> Birthday { get; set; }
 
         //dalia added this 
-        public string ChildProfilePicturePath { get; set; }
+        public string ProfilePicturePath { get; set; }
+
 
         public virtual Account Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

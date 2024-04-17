@@ -295,6 +295,7 @@
     <Folder Include="Areas\PrivateMessage\Data\" />
     <Folder Include="Areas\UserProfile\Data\" />
     <Folder Include="Data\" />
+    <Folder Include="ProfilePictures\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\UserProfile\Views\web.config" />
