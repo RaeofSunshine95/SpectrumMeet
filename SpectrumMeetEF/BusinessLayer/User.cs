@@ -10,6 +10,7 @@ namespace SpectrumMeetEF
     public partial class User
     {
         public SpectrumMeetEntities db = new SpectrumMeetEntities();
+
         //Simple get statement to check if the user is marked as an administrator
         //Uses the users account ID stored in the database, to be used alongside
         //Session["AccountID"] when defining a user profile.
