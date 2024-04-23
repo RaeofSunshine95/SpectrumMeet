@@ -1,58 +1,88 @@
 ﻿@model SpectrumMeetEF.Child
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Children";
 }
 
-<h2>Details</h2>
+<h2>@Model.Name</h2>
 
 <div>
-    <h4>Child</h4>
+
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    @*<dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BirthDate)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BirthDate)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.BirthDate)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Verbal)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Verbal)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Verbal)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Verbal)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SupportLevel.Name)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.SupportLevel.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SupportLevel.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.SupportLevel.Name)
+            </dd>
 
-    </dl>
+        </dl>*@
+
+    @*@foreach (var child in Model.ParentChilds)*@
+
+
+    <strong>Name:</strong> @Model.Name<br />
+    <strong>Description:</strong> @Model.Description<br />
+    <strong>Support Level:</strong> @Model.SupportLevel.Name<br />
+    <strong>Conditions:</strong>
+    <ul>
+        @foreach (var condition in Model.ChildConditions)
+        {
+            <li>
+                @condition.Condition.Name
+            </li>
+
+        }
+    </ul>
+    <strong>Verbal:</strong> @Model.Verbal <br />
+    <strong>Parents:</strong>
+    <ul>
+        @foreach (var parent in Model.ParentChilds)
+        {
+            <li>
+                @Html.ActionLink(parent.Account.User.FirstName, "Details", "Users", new {id = parent.AccountID, area ="UserProfile"})
+            </li>
+
+        }
+    </ul>
+
+    <hr />
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ChildID }) |
-    @Html.ActionLink("Back to List", "Index")
 </p>

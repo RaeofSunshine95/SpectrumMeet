@@ -10,60 +10,87 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Child</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ChildID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <h4>Children</h4>
+    <hr />
+    <div class="children-container">
+        @for (int i = 0; i < Model.ParentChilds.Count(); i++)
+        {
+            var child = Model.ParentChilds.ElementAt(i).Child;
+            if (child != null)
+            {
+                <div class="child">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ParentChilds.ElementAt(i).Child.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ParentChilds.ElementAt(i).Child.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ParentChilds.ElementAt(i).Child.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Child Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.ParentChilds.ElementAt(i).Child.Name, new { htmlAttributes = new { @class = "form-control", rows = 4 } })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Child Description", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.ParentChilds.ElementAt(i).Child.Description, new { htmlAttributes = new { @class = "form-control", rows = 4 } })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Support Level", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <select class="form-control" id="SupportLevel" name="SupportLevel">
+                                <option value="">Select Support Level</option>
+                                @foreach (var supportLevel in ViewBag.SupportLevels)
+                                {
+                                    <option value="@supportLevel.Value">@supportLevel.Text</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Verbal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Verbal)
-                    @Html.ValidationMessageFor(model => model.Verbal, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.Label("Verbal", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(model => model.ParentChilds.ElementAt(i).Child.Verbal, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Child Conditions", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.ListBoxFor(model => model.ParentChilds.ElementAt(i).Child.ChildConditions,
+                                             new MultiSelectList(ViewBag.ConditionOptions, "Value", "Text"),
+                                             new { @class = "form-control", multiple = "multiple" })
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            }
+        }
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <button type="button" id="add-child-btn" class="btn btn-primary">Add Child</button>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LevelID, "LevelID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("LevelID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.LevelID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    @*for the children profile pic*@
+    <div class="form-group">
+        <label class="control-label col-md-2" for="profilePicture">Profile Picture:</label>
+        <div class="col-md-10">
+            <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
         </div>
+    </div>
+}
+
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+</div>
     </div>
 }
 
@@ -73,4 +100,34 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+    <script>
+        $(document).ready(function () {
+            var childIndex = @Model.ParentChilds.Count;
+
+            $('#add-child-btn').click(function () {
+                var childHtml = '<div class="child">' +
+                                    '<h5>Child ' + childIndex + '</h5>' +
+                                    '<div class="form-group">' +
+                                        '<label class="control-label col-md-2" for="Account_ParentChilds_' + childIndex + '__Child_Name">Name</label>' +
+                                        '<div class="col-md-10">' +
+                                            '<input class="form-control" data-val="true" data-val-required="The Name field is required." id="Account_ParentChilds_' + childIndex + '__Child_Name" name="Account.ParentChilds[' + childIndex + '].Child.Name" type="text" value="" />' +
+                                        '</div>' +
+                                    '</div>' +
+                                    //'<!-- Add other child properties here... -->' + TODO
+                                '</div>';
+
+                $('.children-container').append(childHtml);
+                childIndex++;
+            });
+        });
+    $(document).ready(function () {
+
+        $('select[multiple="multiple"] option').mousedown(function (e) {
+            e.preventDefault();
+
+            $(this).prop('selected', !$(this).prop('selected'));
+
+            $(this).parent().focus();
+        });
+    });
+    </script>
