@@ -85,11 +85,11 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AccountID,FirstName,LastName,Email,City,State,Birthday")] User user)
+        public ActionResult Edit([Bind(Include = "AccountID,FirstName,LastName,Email,City,State,Birthday")] User user, FormCollection fc)
         {
             if (ModelState.IsValid)
             {
-                if (user != null && user.Account != null && user.Account.ParentChilds != null)
+                if (user != null)
                 {
                    
                     db.Entry(user).State = EntityState.Modified;
@@ -98,7 +98,7 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
                     foreach (var parentChild in user.Account.ParentChilds)
                     {
                         // Update the child entity
-                        db.Entry(parentChild.Child).State = EntityState.Modified;
+                        //db.Entry(parentChild.Child).State = EntityState.Modified;
 
                         //if (profilePicture != null && profilePicture.ContentLength > 0)
                         //{
@@ -110,7 +110,7 @@ namespace SpectrumMeetMVC.Areas.UserProfile.Controllers
 
 
                         // Update the child conditions
-                        if (parentChild.Child.ChildConditions != null)
+                       if (parentChild.Child.ChildConditions != null)
                         {
                             parentChild.Child.ChildConditions.Clear(); // Clear existing conditions
                             foreach (var conditionId in parentChild.Child.ChildConditions)

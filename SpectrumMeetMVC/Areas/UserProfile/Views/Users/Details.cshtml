@@ -7,8 +7,8 @@
 <h2>@Model.FirstName @Model.LastName</h2>
 
 <div class="row">
-    <div class="col-md-6">
-        <h4>User</h4>
+    <div class="col-md-4">
+        <h4>Parent</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -52,12 +52,12 @@
             </dd>
 
             @*<dt>
-                @Html.DisplayNameFor(model => model.Birthday)
-            </dt>
+                    @Html.DisplayNameFor(model => model.Birthday)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Birthday)
-            </dd>*@
+                <dd>
+                    @Html.DisplayFor(model => model.Birthday)
+                </dd>*@
 
             <dt>
                 @Html.DisplayNameFor(model => model.Account.Username)
@@ -73,8 +73,8 @@
     </div>
 
 
-    <div class="col-md-6">
-        <h4>Children</h4>
+    <div class="col-md-4">
+        @*<h4>Children</h4>
         @foreach (var child in Model.Account.ParentChilds)
         {
 
@@ -97,11 +97,66 @@
 
 
 
-        }
+        }*@
+
+
+        <h4>Children</h4>
+        <hr />
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Support Level</th>
+                    <th>Condition</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var parentChild in Model.Account.ParentChilds)
+                {
+                    var child = parentChild.Child;
+                    <tr>
+                        <td>@child.Name</td>
+                        <td>@child.SupportLevel.Name</td>
+                        <td>
+                            @foreach (var condition in child.ChildConditions)
+                            {
+                                <li>
+                                    @condition.Condition.Name
+                                </li>
+
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink("View Child Profile", "Details", "Children", new { id = child.ChildID, area ="ChildProfile" }, null)
+                            @Html.ActionLink("Edit", "Edit", "Children", new { id = child.ChildID }, null) | <!-- Edit link -->
+                            @Html.ActionLink("Delete", "Delete", "Children", new { id = child.ChildID }, new { onclick = "return confirm('Are you sure you want to delete this child?');" }) <!-- Delete link with confirmation -->
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <!-- Button to create a new child -->
+        <p>
+            @Html.ActionLink("Add New Child", "Create", "Children", new { accountId = Model.AccountID }, new { @class = "btn btn-primary" })
+        </p>
+    </div>
+
+    <div class="col-md-4">
+        <h4>Groups</h4>
+        <hr />
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Group Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+        </table>
     </div>
 </div>
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.AccountID }) |
-    <button class="btn btn-primary" onclick="history.back()">Go back</button>
-</p>
+
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.AccountID }) |
+        <button class="btn btn-primary" onclick="history.back()">Go back</button>
+    </p>

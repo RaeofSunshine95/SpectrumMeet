@@ -42,8 +42,16 @@ namespace SpectrumMeetMVC.Areas.ChildProfile.Controllers
         }
 
         // GET: ChildProfile/Children/Create
-        public ActionResult Create()
+        public ActionResult Create(int? accountId)
         {
+
+            if (accountId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+
+            ViewBag.AccountID = accountId;
             ViewBag.LevelID = new SelectList(db.SupportLevels, "LevelID", "Name");
             return View();
         }
@@ -53,14 +61,23 @@ namespace SpectrumMeetMVC.Areas.ChildProfile.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,BirthDate,Verbal,Description,LevelID")] Child child)
+        public ActionResult Create([Bind(Include = "Name,BirthDate,Verbal,Description,LevelID")] Child child, int? accountId)
         {
             if (ModelState.IsValid)
             {
+                // Initialize the relationship with the account
+                var parentChild = new ParentChild
+                {
+                    AccountID = accountId ?? 0,
+                    Child = child
+                };
+
+                db.ParentChilds.Add(parentChild);
                 db.Children.Add(child);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "UserProfile", new { id = accountId });
             }
+
 
             ViewBag.LevelID = new SelectList(db.SupportLevels, "LevelID", "Name", child.LevelID);
             return View(child);
@@ -93,7 +110,7 @@ namespace SpectrumMeetMVC.Areas.ChildProfile.Controllers
             {
                 db.Entry(child).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+               return RedirectToAction("Details", "UserProfile", new { id = child.ChildID});//how do i get tis to work TODO
             }
             ViewBag.LevelID = new SelectList(db.SupportLevels, "LevelID", "Name", child.LevelID);
             return View(child);
@@ -122,7 +139,7 @@ namespace SpectrumMeetMVC.Areas.ChildProfile.Controllers
             Child child = db.Children.Find(id);
             db.Children.Remove(child);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "UserProfile", new { id = child.ChildID }); //todo
         }
 
         protected override void Dispose(bool disposing)
