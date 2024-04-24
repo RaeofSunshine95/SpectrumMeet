@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using SpectrumMeetEF;
 
 namespace SpectrumMeetMVC.Areas.ChildProfile.Controllers
@@ -96,6 +97,13 @@ namespace SpectrumMeetMVC.Areas.ChildProfile.Controllers
                 return HttpNotFound();
             }
             ViewBag.LevelID = new SelectList(db.SupportLevels, "LevelID", "Name", child.LevelID);
+            var conditions = db.Conditions.ToList();
+            conditions.ForEach(c=>c.isSelected = false);
+            var childconditionIDs = db.ChildConditions.Select(x => x.ConditionID);
+            var childconnditions = conditions.Where( c=> childconditionIDs.Contains(c.ConditionID) );
+            childconnditions.ForEach(c=>c.isSelected = true);
+
+            ViewBag.ConditionOptions = new SelectList(conditions, "Name", "ConditionID");
             return View(child);
         }
 
