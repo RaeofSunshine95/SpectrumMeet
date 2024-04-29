@@ -95,6 +95,7 @@
     <Compile Include="Role.cs">
       <DependentUpon>SpectrumMeet_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="SpectrumMeet.cs" />
     <Compile Include="SpectrumMeet_Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

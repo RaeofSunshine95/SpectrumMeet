@@ -127,9 +127,9 @@
                             }
                         </td>
                         <td>
-                            @Html.ActionLink("View Child Profile", "Details", "Children", new { id = child.ChildID, area ="ChildProfile" }, null)
-                            @Html.ActionLink("Edit", "Edit", "Children", new { id = child.ChildID }, null) | <!-- Edit link -->
-                            @Html.ActionLink("Delete", "Delete", "Children", new { id = child.ChildID }, new { onclick = "return confirm('Are you sure you want to delete this child?');" }) <!-- Delete link with confirmation -->
+                            @Html.ActionLink("View Child Profile", "Details", "Children", new { id = child.ChildID, area ="ChildProfile" }, null) 
+                            @Html.ActionLink("Edit", "Edit", "Children", new { id = child.ChildID, area ="ChildProfile"}, null) <!-- Edit link -->
+                            @Html.ActionLink("Delete", "Delete", "Children", new { id = child.ChildID, area ="ChildProfile" }, new { onclick = "return confirm('Are you sure you want to delete this child?');" }) <!-- Delete link with confirmation -->
                         </td>
                     </tr>
                 }
