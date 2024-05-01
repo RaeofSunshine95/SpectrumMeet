@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -14,6 +15,37 @@ namespace SpectrumMeetMVC.Areas.ChildProfile.Controllers
     public class ChildrenController : Controller
     {
         private SpectrumMeetEntities db = new SpectrumMeetEntities();
+        public ActionResult _ChildConditionChange(string parm)
+        {
+            var parms = parm.Split('|');
+            if(parm.Length >= 2)
+            {
+                if (int.TryParse(parms[0], out var childId))
+                {
+                    if (int.TryParse(parms[1], out var conditionId))
+                    {
+                        var childCondition = db.ChildConditions
+                            .FirstOrDefault(cc=>cc.ChildID == childId && cc.ConditionID == conditionId);
+                        if (childCondition == null)
+                        {
+                            childCondition = new ChildCondition()
+                            {
+                                ChildID = childId,
+                                ConditionID = conditionId
+                            };
+                            db.ChildConditions.Add(childCondition);
+                        }
+                        else
+                        {
+                            db.ChildConditions.Remove(childCondition);
+                        }
+                        db.SaveChanges();
+                        return PartialView("Succeeded");
+                    }
+                }
+            }
+            return PartialView("Failed");
+        }
 
         // GET: ChildProfile/Children
         public ActionResult Index()
@@ -27,18 +59,16 @@ namespace SpectrumMeetMVC.Areas.ChildProfile.Controllers
         {
             if (id == null)
             {
+                ViewData["RandomImagePath"] = GetRandomImagePath();
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Child child = db.Children.Find(id);
             if (child == null)
             {
+                ViewData["RandomImagePath"] = GetRandomImagePath();
                 return HttpNotFound();
             }
-            //ViewBag.ChildName = child.Name;
-            //ViewBag.ChildBirthDate = child.BirthDate;
-            //ViewBag.ChildVerbal = child.Verbal;
-            //ViewBag.ChildDescription = child.Description;
-            //ViewBag.LevelName = db.SupportLevels.FirstOrDefault(s => s.LevelID == child.LevelID)?.Name;
+            ViewData["RandomImagePath"] = GetRandomImagePath();
             return View(child);
         }
 
@@ -76,7 +106,7 @@ namespace SpectrumMeetMVC.Areas.ChildProfile.Controllers
                 db.ParentChilds.Add(parentChild);
                 db.Children.Add(child);
                 db.SaveChanges();
-                return RedirectToAction("Details", "UserProfile", new { id = accountId });
+                return RedirectToAction("Details", "Users", new { area = "UserProfile", id = accountId });
             }
 
 
@@ -92,18 +122,47 @@ namespace SpectrumMeetMVC.Areas.ChildProfile.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Child child = db.Children.Find(id);
+            
             if (child == null)
             {
                 return HttpNotFound();
             }
             ViewBag.LevelID = new SelectList(db.SupportLevels, "LevelID", "Name", child.LevelID);
-            var conditions = db.Conditions.ToList();
-            conditions.ForEach(c=>c.isSelected = false);
-            var childconditionIDs = db.ChildConditions.Select(x => x.ConditionID);
-            var childconnditions = conditions.Where( c=> childconditionIDs.Contains(c.ConditionID) );
-            childconnditions.ForEach(c=>c.isSelected = true);
 
-            ViewBag.ConditionOptions = new SelectList(conditions, "Name", "ConditionID");
+            child.ChildConditions.ForEach(cc => cc.IsSelected = true);
+            var conditionIds = child.ChildConditions.Select(cc => cc.ConditionID).ToList();
+
+            var conditionList = new List<SpectrumMeetEF.Condition>();
+            var conditions = db.Conditions
+            .Where(c => conditionIds.Contains(c.ConditionID))
+            .ToList();
+            foreach (var condition in conditions)
+            {
+                var childCondition = new SpectrumMeetEF.Condition()
+                {
+                    ConditionID = condition.ConditionID,
+                    Name = condition.Name,
+                    IsSelected = true
+
+                };
+                conditionList.Add(childCondition);
+            }
+            conditions = db.Conditions
+                .Where(c => !conditionIds.Contains(c.ConditionID))
+                .ToList();
+            foreach (var condition in conditions)
+            {
+                var childCondition = new SpectrumMeetEF.Condition()
+                {
+                    ConditionID = condition.ConditionID,
+                    Name = condition.Name,
+                    IsSelected = false
+
+                };
+                conditionList.Add(childCondition);
+            }
+
+            ViewBag.Conditions = conditionList.OrderBy(cc => cc.Name).ToList();
             return View(child);
         }
 
@@ -118,7 +177,7 @@ namespace SpectrumMeetMVC.Areas.ChildProfile.Controllers
             {
                 db.Entry(child).State = EntityState.Modified;
                 db.SaveChanges();
-               return RedirectToAction("Details", "UserProfile", new { id = child.ChildID});//how do i get tis to work TODO
+               return RedirectToAction("Details", "Users", new { id = child.ChildID, area = "UserProfile"});//how do i get tis to work TODO
             }
             ViewBag.LevelID = new SelectList(db.SupportLevels, "LevelID", "Name", child.LevelID);
             return View(child);
@@ -146,7 +205,7 @@ namespace SpectrumMeetMVC.Areas.ChildProfile.Controllers
         {
             Child child = db.Children.Find(id);
             db.Children.Remove(child);
-            db.SaveChanges();
+            db.SaveChanges(); //TODO FIX HELP PLEASE
             return RedirectToAction("Details", "UserProfile", new { id = child.ChildID }); //todo
         }
 
@@ -157,6 +216,13 @@ namespace SpectrumMeetMVC.Areas.ChildProfile.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public string GetRandomImagePath()
+        {
+            var imagesDirectory = Server.MapPath("~/Content/Images/");
+            var images = Directory.GetFiles(imagesDirectory);
+            var randomImage = images[new Random().Next(images.Length)];
+            return Url.Content("~/Content/Images/" + Path.GetFileName(randomImage));
         }
     }
 }

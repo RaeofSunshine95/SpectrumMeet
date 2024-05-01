@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5597762c85114229aae7396fc876040c" Name="Diagram1" ZoomLevel="64">
+      <Diagram DiagramId="5597762c85114229aae7396fc876040c" Name="Diagram1" ZoomLevel="55">
         <EntityTypeShape EntityType="OOPsieModel.Account" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="OOPsieModel.Child" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OOPsieModel.ChildCondition" Width="1.5" PointX="8.25" PointY="3.75" IsExpanded="true" />
