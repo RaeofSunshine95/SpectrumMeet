@@ -11,8 +11,7 @@ namespace SpectrumMeetEF
 {
     using System;
     using System.Collections.Generic;
-    using System.Reflection;
-
+    
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,10 +27,7 @@ namespace SpectrumMeetEF
         public string City { get; set; }
         public string State { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
-
-        
-
-
+    
         public virtual Account Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages { get; set; }

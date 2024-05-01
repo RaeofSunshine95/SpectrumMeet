@@ -33,7 +33,5 @@ namespace SpectrumMeetEF
         public virtual ICollection<ChildCondition> ChildConditions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ParentChild> ParentChilds { get; set; }
-
-       
     }
 }

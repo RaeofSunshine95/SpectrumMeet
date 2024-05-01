@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace SpectrumMeetEF
 {
+    public partial class ChildCondition
+    {
+        public bool IsSelected { get; set; }
+    }
     public partial class Condition
     {
-        public bool isSelected { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

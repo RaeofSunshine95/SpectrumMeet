@@ -9,6 +9,7 @@
 <div>
 
     <hr />
+
     @*<dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.Name)
@@ -54,32 +55,52 @@
 
     @*@foreach (var child in Model.ParentChilds)*@
 
+    <table border="0">
+        <tr>
+            <td>
+                <img src="@ViewData["RandomImagePath"]" alt="Random Image" width="100" height="100" />
 
-    <strong>Name:</strong> @Model.Name<br />
-    <strong>Description:</strong> @Model.Description<br />
-    <strong>Support Level:</strong> @Model.SupportLevel.Name<br />
-    <strong>Conditions:</strong>
-    <ul>
-        @foreach (var condition in Model.ChildConditions)
-        {
-            <li>
-                @condition.Condition.Name
-            </li>
 
-        }
-    </ul>
-    <strong>Verbal:</strong> @Model.Verbal <br />
-    <strong>Parents:</strong>
-    <ul>
-        @foreach (var parent in Model.ParentChilds)
-        {
-            <li>
-                @Html.ActionLink(parent.Account.User.FirstName, "Details", "Users", new {id = parent.AccountID, area ="UserProfile"}, null)
-            </li>
+            </td>
+            <td>
+                <strong>Name:</strong> @Model.Name<br />
+                <strong>Description:</strong> @Model.Description<br />
+                <strong>Support Level:</strong> @Model.SupportLevel.Name<br />
 
-        }
-    </ul>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <strong>Conditions:</strong>
+                <ul>
 
+                    @foreach (var condition in Model.ChildConditions)
+                    {
+                        <li>
+                            @condition.Condition.Name
+                        </li>
+
+                    }
+                </ul>
+
+                <strong>Verbal:</strong> @Model.Verbal <br />
+                <strong>Parents:</strong>
+                <ul>
+                    @foreach (var parent in Model.ParentChilds)
+                    {
+                        <li>
+                            @Html.ActionLink(parent.Account.User.FirstName, "Details", "Users", new { id = parent.AccountID, area = "UserProfile" }, null)
+                        </li>
+
+                    }
+                </ul>
+            </td>
+        </tr>
+
+    </table>
+
+  
     <hr />
 
 </div>

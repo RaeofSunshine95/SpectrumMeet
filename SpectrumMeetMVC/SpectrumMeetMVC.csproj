@@ -183,6 +183,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Images\baby.png" />
+    <Content Include="Content\Images\toddler.png" />
     <Content Include="Content\img\hero-bg.jpeg" />
     <Content Include="Content\img\why-us-bg.png" />
     <Content Include="Content\img\why-us-bg2.png" />
